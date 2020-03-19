@@ -8,7 +8,10 @@ const isDev = require("electron-is-dev");
 let mainWindow;
 
 function createWindow() {
-  mainWindow = new BrowserWindow();
+  mainWindow = new BrowserWindow({
+    minHeight: 750,
+    minWidth: 1300
+  });
   mainWindow.maximize();
   mainWindow.loadURL(
     isDev
