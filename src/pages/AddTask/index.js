@@ -1,16 +1,21 @@
 import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
 import { MdSave } from "react-icons/md";
 import * as Yup from "yup";
+import crypto from "crypto";
+import { promisify } from "util";
 
 import { Container, Header, Wrapper, Button, Form } from "./styles";
 import Input from "../../components/Input";
 import history from "../../services/history";
 import SubmitButton from "../../components/Button";
+import { create } from "../../store/modules/task/actions";
 
 function AddTask() {
   const formRef = useRef(null);
   const [disable, setDisable] = useState(true);
+  const dispatch = useDispatch();
 
   async function handleSubmit(data) {
     try {
@@ -23,6 +28,16 @@ function AddTask() {
       });
 
       formRef.current.setErrors({});
+
+      const randomBytes = promisify(crypto.randomBytes)(256);
+
+      dispatch(
+        create({
+          id: (await randomBytes).toString("hex"),
+          done: false,
+          ...data
+        })
+      );
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
