@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { MdMoreHoriz } from "react-icons/md";
 
@@ -8,6 +8,16 @@ function Dropdown({ options }) {
   const dropRef = useRef(null);
   const [visible, setVisible] = useState(false);
   const [showLeft, setShowLeft] = useState(false);
+
+  function cleanup() {
+    document.removeEventListener("click", closeMenu);
+  }
+
+  const callbackClean = useCallback(cleanup);
+
+  useEffect(() => {
+    return callbackClean;
+  }, [callbackClean]);
 
   function handleToggle(event) {
     event.preventDefault();
