@@ -5,12 +5,14 @@ import Route from "./Route";
 
 import Timetable from "../pages/Timetable";
 import Tasks from "../pages/Tasks";
+import AddTask from "../pages/AddTask";
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Timetable} />
       <Route path="/tasks" exact component={Tasks} />
+      <Route path="/addtask" exact component={AddTask} />
     </Switch>
   );
 }
