@@ -6,6 +6,7 @@ import Route from "./Route";
 import Timetable from "../pages/Timetable";
 import Tasks from "../pages/Tasks";
 import AddTask from "../pages/AddTask";
+import AddLesson from "../pages/AddLesson";
 
 export default function Routes() {
   return (
@@ -13,6 +14,7 @@ export default function Routes() {
       <Route path="/" exact component={Timetable} />
       <Route path="/tasks" exact component={Tasks} />
       <Route path="/addtask" exact component={AddTask} />
+      <Route path="/addlesson" exact component={AddLesson} />
     </Switch>
   );
 }
