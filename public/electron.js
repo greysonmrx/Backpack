@@ -10,7 +10,14 @@ let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
     minHeight: 750,
-    minWidth: 1300
+    minWidth: 1300,
+    icon: path.resolve(
+      __dirname,
+      "..",
+      "src",
+      "assets",
+      "logo-color-simple.png"
+    )
   });
   mainWindow.setMenu(null);
   mainWindow.maximize();
