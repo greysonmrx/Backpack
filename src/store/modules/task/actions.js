@@ -18,3 +18,10 @@ export function remove(id) {
     payload: id
   };
 }
+
+export function edit(data) {
+  return {
+    type: "@task/EDIT",
+    payload: data
+  };
+}

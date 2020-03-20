@@ -14,8 +14,13 @@ export function removeTask() {
   history.push("/tasks");
 }
 
+export function editTask() {
+  history.push("/tasks");
+}
+
 export default all([
   takeLatest("@task/CREATE", createTask),
   takeLatest("@task/TOGGLE_DONE", toggleDone),
-  takeLatest("@task/REMOVE", removeTask)
+  takeLatest("@task/REMOVE", removeTask),
+  takeLatest("@task/EDIT", editTask)
 ]);

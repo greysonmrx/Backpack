@@ -27,6 +27,17 @@ export default function task(state = INITIAL_STATE, action) {
         draft.tasks = state.tasks.filter(task => task.id !== action.payload);
       });
     }
+    case "@task/EDIT": {
+      return produce(state, draft => {
+        draft.tasks = state.tasks.map(task => {
+          if (action.payload.id === task.id) {
+            return { ...task, title: action.payload.title };
+          } else {
+            return task;
+          }
+        });
+      });
+    }
     default:
       return state;
   }
