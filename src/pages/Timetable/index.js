@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { MdMoreHoriz } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 
@@ -18,7 +19,7 @@ import {
 import history from "../../services/history";
 
 function Timetable() {
-  const [data] = useState([]);
+  const data = useSelector(state => state.timetable.data);
 
   function handleEmptyDays() {
     let empty = true;
