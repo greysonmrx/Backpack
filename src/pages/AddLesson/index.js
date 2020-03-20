@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
 import { MdSave } from "react-icons/md";
 import * as Yup from "yup";
+import crypto from "crypto";
 
 import { Container, Header, Wrapper, Button, Form, Colors } from "./styles";
 import Input from "../../components/Input";
@@ -10,9 +12,12 @@ import SubmitButton from "../../components/Button";
 import SelectInput from "../../components/SelectInput";
 import SelectColor from "../../components/SelectColor";
 
+import { create } from "../../store/modules/timetable/actions";
+
 function AddLesson() {
   const formRef = useRef(null);
   const [disable, setDisable] = useState(true);
+  const dispatch = useDispatch();
 
   async function handleSubmit(data) {
     try {
@@ -29,6 +34,18 @@ function AddLesson() {
       });
 
       formRef.current.setErrors({});
+
+      const formatedData = {
+        id: crypto.randomBytes(256),
+        name: data.name,
+        color: data.color,
+        day: data.day,
+        time: `${data.initialTime} - ${data.finalTime}`,
+        classroom: data.classroom,
+        teacher: data.teacher
+      };
+
+      dispatch(create(formatedData));
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
