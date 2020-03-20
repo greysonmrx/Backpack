@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { MdMoreHoriz } from "react-icons/md";
+import { MdEdit, MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 
 import {
@@ -17,6 +17,7 @@ import {
   Empty
 } from "./styles";
 import history from "../../services/history";
+import Dropdown from "../../components/Dropdown";
 
 function Timetable() {
   const data = useSelector(state => state.timetable.data);
@@ -46,9 +47,30 @@ function Timetable() {
                 <header>
                   <Top>
                     <h3>{lesson.name}</h3>
-                    <button>
-                      <MdMoreHoriz />
-                    </button>
+                    <Dropdown
+                      options={[
+                        {
+                          action: () =>
+                            console.log("Editar aula com o id: ", lesson.id),
+                          children: (
+                            <>
+                              <MdEdit />
+                              <span>Editar esta aula</span>
+                            </>
+                          )
+                        },
+                        {
+                          action: () =>
+                            console.log("Excluir aula com o id: ", lesson.id),
+                          children: (
+                            <>
+                              <MdDelete />
+                              <span>Excluir esta aula</span>
+                            </>
+                          )
+                        }
+                      ]}
+                    />
                   </Top>
                   <time>{lesson.time}</time>
                 </header>

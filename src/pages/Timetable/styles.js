@@ -126,21 +126,6 @@ export const Top = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: fit-content;
-    border: none;
-    outline: none;
-    background: none;
-
-    svg {
-      font-size: 25px;
-    }
-  }
 `;
 
 export const Empty = styled.div`
