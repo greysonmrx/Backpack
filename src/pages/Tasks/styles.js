@@ -133,6 +133,11 @@ export const Action = styled.button`
   margin-left: 10px;
   padding: 10px;
   border-radius: 50%;
+  transition: all 0.3s;
+
+  :hover {
+    background: ${props => darken(0.1, props.color)};
+  }
 
   svg {
     font-size: 20px;
