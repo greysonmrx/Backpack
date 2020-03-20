@@ -44,10 +44,23 @@ export default function timetable(state = INITIAL_STATE, action) {
   switch (action.type) {
     case "@timetable/CREATE": {
       return produce(state, draft => {
-        // draft.data[0].lessons = [action.payload];
         draft.data = state.data.map(day => {
           if (action.payload.day === day.name) {
             return { ...day, lessons: [...day.lessons, action.payload] };
+          } else {
+            return day;
+          }
+        });
+      });
+    }
+    case "@timetable/REMOVE": {
+      return produce(state, draft => {
+        draft.data = state.data.map(day => {
+          if (action.payload.day === day.name) {
+            return {
+              ...day,
+              lessons: day.lessons.filter(item => item.id !== action.payload.id)
+            };
           } else {
             return day;
           }

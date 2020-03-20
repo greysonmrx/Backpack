@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
 import {
   Container,
@@ -18,9 +19,11 @@ import {
 } from "./styles";
 import history from "../../services/history";
 import Dropdown from "../../components/Dropdown";
+import { remove } from "../../store/modules/timetable/actions";
 
 function Timetable() {
   const data = useSelector(state => state.timetable.data);
+  const dispatch = useDispatch();
 
   function handleEmptyDays() {
     let empty = true;
@@ -60,8 +63,7 @@ function Timetable() {
                           )
                         },
                         {
-                          action: () =>
-                            console.log("Excluir aula com o id: ", lesson.id),
+                          action: () => dispatch(remove(lesson.id, day.name)),
                           children: (
                             <>
                               <MdDelete />

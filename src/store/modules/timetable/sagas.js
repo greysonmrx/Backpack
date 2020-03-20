@@ -6,4 +6,11 @@ export function createLesson() {
   history.push("/");
 }
 
-export default all([takeLatest("@timetable/CREATE", createLesson)]);
+export function removeLesson() {
+  history.push("/");
+}
+
+export default all([
+  takeLatest("@timetable/CREATE", createLesson),
+  takeLatest("@timetable/REMOVE", removeLesson)
+]);

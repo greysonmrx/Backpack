@@ -4,3 +4,10 @@ export function create(data) {
     payload: data
   };
 }
+
+export function remove(id, day) {
+  return {
+    type: "@timetable/REMOVE",
+    payload: { id, day }
+  };
+}
