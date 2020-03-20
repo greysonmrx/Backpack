@@ -6,4 +6,11 @@ export function createTask() {
   history.push("/tasks");
 }
 
-export default all([takeLatest("@task/CREATE", createTask)]);
+export function toggleDone() {
+  history.push("/tasks");
+}
+
+export default all([
+  takeLatest("@task/CREATE", createTask),
+  takeLatest("@task/TOGGLE_DONE", toggleDone)
+]);

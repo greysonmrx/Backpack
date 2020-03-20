@@ -4,3 +4,10 @@ export function create(data) {
     payload: data
   };
 }
+
+export function toggleDone(id) {
+  return {
+    type: "@task/TOGGLE_DONE",
+    payload: id
+  };
+}

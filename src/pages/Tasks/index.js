@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { MdEdit, MdDelete } from "react-icons/md";
 
@@ -19,16 +19,21 @@ import {
 } from "./styles";
 import Checkmark from "../../components/Checkmark";
 import history from "../../services/history";
+import { toggleDone } from "../../store/modules/task/actions";
 
 function Tasks() {
   const tasks = useSelector(state => state.task.tasks);
+  const dispatch = useDispatch();
 
   function handleRenderTasks() {
     return tasks.map(task => (
       <Task key={task.id}>
         <Left checked={task.done ? 1 : 0}>
           <label>
-            <Checkmark defaultChecked={task.done ? 1 : 0} />
+            <Checkmark
+              defaultChecked={task.done ? 1 : 0}
+              onClick={() => dispatch(toggleDone(task.id))}
+            />
             <p>{task.title}</p>
           </label>
         </Left>
