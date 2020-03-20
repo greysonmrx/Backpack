@@ -15,6 +15,7 @@ import {
   Top,
   Empty
 } from "./styles";
+import history from "../../services/history";
 
 function Timetable() {
   const [data] = useState([]);
@@ -76,7 +77,7 @@ function Timetable() {
             direito do mouse nas lições para editá-las ou excluí-las.
           </p>
         </Wrapper>
-        <Button>
+        <Button onClick={() => history.push("/addlesson")}>
           <FaPlus />
           <span>Nova aula</span>
         </Button>
