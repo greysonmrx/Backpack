@@ -11,3 +11,10 @@ export function toggleDone(id) {
     payload: id
   };
 }
+
+export function remove(id) {
+  return {
+    type: "@task/REMOVE",
+    payload: id
+  };
+}

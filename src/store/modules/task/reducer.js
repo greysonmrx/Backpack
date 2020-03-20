@@ -22,6 +22,11 @@ export default function task(state = INITIAL_STATE, action) {
         });
       });
     }
+    case "@task/REMOVE": {
+      return produce(state, draft => {
+        draft.tasks = state.tasks.filter(task => task.id !== action.payload);
+      });
+    }
     default:
       return state;
   }

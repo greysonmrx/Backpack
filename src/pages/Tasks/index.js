@@ -19,7 +19,7 @@ import {
 } from "./styles";
 import Checkmark from "../../components/Checkmark";
 import history from "../../services/history";
-import { toggleDone } from "../../store/modules/task/actions";
+import { toggleDone, remove } from "../../store/modules/task/actions";
 
 function Tasks() {
   const tasks = useSelector(state => state.task.tasks);
@@ -41,7 +41,7 @@ function Tasks() {
           <Action color="#039BE5">
             <MdEdit />
           </Action>
-          <Action color="#e53935">
+          <Action color="#e53935" onClick={() => dispatch(remove(task.id))}>
             <MdDelete />
           </Action>
         </Right>
