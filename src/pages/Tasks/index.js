@@ -38,7 +38,12 @@ function Tasks() {
           </label>
         </Left>
         <Right>
-          <Action color="#039BE5">
+          <Action
+            color="#039BE5"
+            onClick={() =>
+              history.push({ pathname: "/edittask", state: { task } })
+            }
+          >
             <MdEdit />
           </Action>
           <Action color="#e53935" onClick={() => dispatch(remove(task.id))}>
