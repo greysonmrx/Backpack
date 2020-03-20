@@ -9,20 +9,9 @@ function Dropdown({ options }) {
   const [visible, setVisible] = useState(false);
   const [showLeft, setShowLeft] = useState(false);
 
-  function cleanup() {
-    document.removeEventListener("click", closeMenu);
-  }
-
-  const callbackClean = useCallback(cleanup);
-
-  useEffect(() => {
-    return callbackClean;
-  }, [callbackClean]);
-
   function handleToggle(event) {
     event.preventDefault();
-
-    if (event.screenX >= window.screen.width / 2) {
+    if (event.screenX >= window.screen.width / 2 - 280) {
       setShowLeft(true);
     } else {
       setShowLeft(false);
@@ -34,12 +23,18 @@ function Dropdown({ options }) {
       : document.addEventListener("click", closeMenu);
   }
 
-  function closeMenu(event) {
+  const closeMenu = useCallback(event => {
     event.preventDefault();
 
     document.removeEventListener("click", closeMenu);
     setVisible(false);
-  }
+  }, []);
+
+  useEffect(() => {
+    return function cleanup() {
+      document.removeEventListener("click", closeMenu);
+    };
+  }, [closeMenu]);
 
   return (
     <Container>
