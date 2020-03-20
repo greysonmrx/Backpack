@@ -17,6 +17,7 @@ import {
   Action
 } from "./styles";
 import Checkmark from "../../components/Checkmark";
+import history from "../../services/history";
 
 function Tasks() {
   const [tasks] = useState([]);
@@ -49,7 +50,7 @@ function Tasks() {
           <h1>Tarefas</h1>
           <p>Aqui você pode ver suas tarefas.</p>
         </Wrapper>
-        <Button>
+        <Button onClick={() => history.push("/addtask")}>
           <FaPlus />
           <span>Nova tarefa</span>
         </Button>
