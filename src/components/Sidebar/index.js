@@ -4,10 +4,15 @@ import { FaPlus } from "react-icons/fa";
 
 import { Container, Header, Menu, Items, Title, Item, Button } from "./styles";
 
+import history from "../../services/history";
 import Logo from "../../assets/logo-color-extended.png";
 
 function Sidebar() {
   const [notebooks] = useState([]);
+
+  function handleActiveLink(name) {
+    return history.location.pathname.split("/")[1] === name;
+  }
 
   return (
     <Container>
@@ -16,11 +21,15 @@ function Sidebar() {
       </Header>
       <Menu>
         <Items>
-          <Item single>
+          <Item single={1} active={handleActiveLink("") ? 1 : 0} to="/">
             <MdEventNote size={23} />
             <span>Calendário</span>
           </Item>
-          <Item single>
+          <Item
+            single={1}
+            active={handleActiveLink("tasks") ? 1 : 0}
+            to="/tasks"
+          >
             <MdCheckCircle size={23} />
             <span>Tarefas</span>
           </Item>

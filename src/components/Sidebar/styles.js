@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { darken } from "polished";
+import { Link } from "react-router-dom";
 import PerfectScrollBar from "react-perfect-scrollbar";
 
 export const Container = styled.div`
@@ -103,20 +104,25 @@ export const Title = styled.h1`
   }
 `;
 
-export const Item = styled.li`
+export const Item = styled(Link)`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   padding: 10px 0;
 
+  &&:hover span,
+  &&:hover svg {
+    color: #3333cc;
+  }
+
   svg {
-    color: #333;
+    color: ${props => (props.active ? "#3333cc" : "#444444")};
     margin-right: 10px;
   }
 
   span {
-    color: #202124;
+    color: ${props => (props.active ? "#3333cc" : "#202124")};
     font-weight: 400;
     font-size: 16px;
     margin-top: 3px;
