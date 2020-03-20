@@ -12,6 +12,7 @@ function createWindow() {
     minHeight: 750,
     minWidth: 1300
   });
+  mainWindow.setMenu(null);
   mainWindow.maximize();
   mainWindow.loadURL(
     isDev
