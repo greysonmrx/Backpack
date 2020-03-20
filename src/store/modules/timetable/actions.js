@@ -11,3 +11,10 @@ export function remove(id, day) {
     payload: { id, day }
   };
 }
+
+export function edit(data) {
+  return {
+    type: "@timetable/EDIT",
+    payload: data
+  };
+}

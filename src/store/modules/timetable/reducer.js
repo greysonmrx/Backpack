@@ -67,6 +67,26 @@ export default function timetable(state = INITIAL_STATE, action) {
         });
       });
     }
+    case "@timetable/EDIT": {
+      return produce(state, draft => {
+        draft.data = state.data.map(day => {
+          if (action.payload.day === day.name) {
+            return {
+              ...day,
+              lessons: day.lessons.map(lesson => {
+                if (lesson.id === action.payload.id) {
+                  return action.payload;
+                } else {
+                  return lesson;
+                }
+              })
+            };
+          } else {
+            return day;
+          }
+        });
+      });
+    }
     default:
       return state;
   }

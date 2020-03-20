@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
 import { MdSave } from "react-icons/md";
 import * as Yup from "yup";
@@ -9,11 +10,13 @@ import history from "../../services/history";
 import SubmitButton from "../../components/Button";
 import SelectInput from "../../components/SelectInput";
 import SelectColor from "../../components/SelectColor";
+import { edit } from "../../store/modules/timetable/actions";
 
 function EditLesson({ location }) {
   const formRef = useRef(null);
   const [disable, setDisable] = useState(false);
   const { lesson: initialData } = Object(location.state);
+  const dispatch = useDispatch();
 
   function handleInitialData(data) {
     return data
@@ -51,7 +54,7 @@ function EditLesson({ location }) {
         teacher: data.teacher
       };
 
-      console.log(formatedData);
+      dispatch(edit(formatedData));
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
