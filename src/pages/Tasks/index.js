@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { MdEdit, MdDelete } from "react-icons/md";
 
@@ -20,7 +21,7 @@ import Checkmark from "../../components/Checkmark";
 import history from "../../services/history";
 
 function Tasks() {
-  const [tasks] = useState([]);
+  const tasks = useSelector(state => state.task.tasks);
 
   function handleRenderTasks() {
     return tasks.map(task => (
