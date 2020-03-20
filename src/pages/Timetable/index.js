@@ -54,7 +54,10 @@ function Timetable() {
                       options={[
                         {
                           action: () =>
-                            console.log("Editar aula com o id: ", lesson.id),
+                            history.push({
+                              pathname: "/editlesson",
+                              state: { lesson }
+                            }),
                           children: (
                             <>
                               <MdEdit />
