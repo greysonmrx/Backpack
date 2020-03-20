@@ -26,7 +26,7 @@ function AddLesson() {
         initialTime: Yup.string().required(
           "A hora inicial da aula é obrigatória"
         ),
-        finalTime: Yup.string().required("A hora fianl da aula é obrigatória"),
+        finalTime: Yup.string().required("A hora final da aula é obrigatória"),
         name: Yup.string().required("O nome da aula é obrigatório")
       });
 
