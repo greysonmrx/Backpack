@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
@@ -20,8 +20,10 @@ import {
 import history from "../../services/history";
 import Dropdown from "../../components/Dropdown";
 import { remove } from "../../store/modules/timetable/actions";
+import ModalDelete from "../../components/ModalDelete";
 
 function Timetable() {
+  const [lessonInfo, setLessonInfo] = useState(0);
   const data = useSelector(state => state.timetable.data);
   const dispatch = useDispatch();
 
@@ -66,7 +68,11 @@ function Timetable() {
                           )
                         },
                         {
-                          action: () => dispatch(remove(lesson.id, day.name)),
+                          action: () =>
+                            setLessonInfo({
+                              id: lesson.id,
+                              day: day.name
+                            }),
                           children: (
                             <>
                               <MdDelete />
@@ -97,6 +103,13 @@ function Timetable() {
 
   return (
     <Container>
+      <ModalDelete
+        visible={!!lessonInfo}
+        title="Excluir esta aula?"
+        message="Se você excluir esta aula, ela vai desaparecer para sempre. Tem certeza que deseja continuar?"
+        cancel={() => setLessonInfo(0)}
+        confirm={() => dispatch(remove(lessonInfo.id, lessonInfo.day))}
+      />
       <Header>
         <Wrapper>
           <h1>Calendário</h1>
