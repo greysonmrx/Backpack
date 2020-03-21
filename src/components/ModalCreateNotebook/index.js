@@ -9,7 +9,7 @@ import { promisify } from "util";
 import Input from "../Input";
 import { Container, Modal, Center, Icon, Exit, Button, Form } from "./styles";
 
-function ModalCreate({ title, message, cancel, confirm, visible }) {
+function ModalCreateNotebook({ title, message, cancel, confirm, visible }) {
   const formRef = useRef(null);
 
   async function handleSubmit(data) {
@@ -63,9 +63,9 @@ function ModalCreate({ title, message, cancel, confirm, visible }) {
   ) : null;
 }
 
-export default ModalCreate;
+export default ModalCreateNotebook;
 
-ModalCreate.propTypes = {
+ModalCreateNotebook.propTypes = {
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
