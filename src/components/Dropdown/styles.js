@@ -13,7 +13,7 @@ const show = keyframes`
 
 export const Container = styled.div`
   position: relative;
-  z-index: 999999;
+  z-index: 100;
 `;
 
 export const ButtonIcon = styled.button`
