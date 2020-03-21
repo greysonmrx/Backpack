@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { MdEdit, MdDelete } from "react-icons/md";
@@ -20,10 +20,12 @@ import {
 import Checkmark from "../../components/Checkmark";
 import history from "../../services/history";
 import { toggleDone, remove } from "../../store/modules/task/actions";
+import ModalDelete from "../../components/ModalDelete";
 
 function Tasks() {
   const tasks = useSelector(state => state.task.tasks);
   const dispatch = useDispatch();
+  const [taskId, setTaskId] = useState(0);
 
   function handleRenderTasks() {
     return tasks.map(task => (
@@ -46,7 +48,7 @@ function Tasks() {
           >
             <MdEdit />
           </Action>
-          <Action color="#e53935" onClick={() => dispatch(remove(task.id))}>
+          <Action color="#e53935" onClick={() => setTaskId(task.id)}>
             <MdDelete />
           </Action>
         </Right>
@@ -56,6 +58,13 @@ function Tasks() {
 
   return (
     <Container>
+      <ModalDelete
+        visible={!!taskId}
+        title="Excluir esta tarefa?"
+        message="Se você excluir esta tarefa, ela vai desaparecer para sempre. Tem certeza que deseja continuar?"
+        cancel={() => setTaskId(0)}
+        confirm={() => dispatch(remove(taskId))}
+      />
       <Header>
         <Wrapper>
           <h1>Tarefas</h1>
