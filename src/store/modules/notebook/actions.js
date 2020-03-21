@@ -4,3 +4,10 @@ export function create(data) {
     payload: data
   };
 }
+
+export function remove(id) {
+  return {
+    type: "@notebook/REMOVE",
+    payload: id
+  };
+}

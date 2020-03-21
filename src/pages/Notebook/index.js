@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { MdDescription, MdCreate, MdDelete } from "react-icons/md";
 
 import {
@@ -12,16 +13,33 @@ import {
   Note
 } from "./styles";
 import Dropdown from "../../components/Dropdown";
+import ModalDelete from "../../components/ModalDelete";
+import { remove } from "../../store/modules/notebook/actions";
+import history from "../../services/history";
 
 function Notebook({ location }) {
+  const [visible, setVisible] = useState(false);
   const { notebook } = Object(location.state);
+  const dispatch = useDispatch();
 
   function handleNumberOfNotes(number) {
     return number === 1 ? `${number} nota` : `${number} notas`;
   }
 
+  function handleRemoveNotebook() {
+    dispatch(remove(notebook.id));
+    history.push("/");
+  }
+
   return (
     <Container>
+      <ModalDelete
+        visible={visible}
+        title="Excluir este caderno?"
+        message="Se você excluir este caderno, ele vai desaparecer para sempre. Tem certeza que deseja continuar?"
+        cancel={() => setVisible(false)}
+        confirm={handleRemoveNotebook}
+      />
       <Content>
         <Wrapper>
           <Header>
@@ -53,7 +71,7 @@ function Notebook({ location }) {
                       <span>Excluir caderno</span>
                     </>
                   ),
-                  action: () => {}
+                  action: () => setVisible(true)
                 }
               ]}
             />
