@@ -45,7 +45,7 @@ function Timetable() {
     data.forEach(day => {
       if (day.lessons.length !== 0) {
         cards.push(
-          <Cards key={day.id}>
+          <Cards key={day.id} isToday={day.id === new Date().getDay()}>
             <h2>{day.name}</h2>
             {day.lessons.map(lesson => (
               <Card key={lesson.id} color={lesson.color}>

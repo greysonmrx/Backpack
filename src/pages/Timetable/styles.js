@@ -75,7 +75,7 @@ export const Cards = styled.div`
   margin-left: 20px;
 
   h2 {
-    color: #666666;
+    color: ${props => (props.isToday ? "#3333cc" : "#666666")};
     text-transform: uppercase;
     font-size: 16px;
     margin-bottom: 10px;
