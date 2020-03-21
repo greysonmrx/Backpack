@@ -11,7 +11,7 @@ function Dropdown({ options }) {
 
   function handleToggle(event) {
     event.preventDefault();
-    if (event.screenX >= window.screen.width / 2 - 280) {
+    if (event.screenX - 280 >= window.innerWidth) {
       setShowLeft(true);
     } else {
       setShowLeft(false);
