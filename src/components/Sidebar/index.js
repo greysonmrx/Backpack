@@ -16,7 +16,7 @@ import {
 
 import history from "../../services/history";
 import Logo from "../../assets/logo-color-extended.png";
-import ModalCreate from "../ModalCreate";
+import ModalCreateNotebook from "../ModalCreateNotebook";
 import { create } from "../../store/modules/notebook/actions";
 
 function Sidebar() {
@@ -30,7 +30,7 @@ function Sidebar() {
 
   return (
     <Container>
-      <ModalCreate
+      <ModalCreateNotebook
         title="Novo caderno"
         message="Defina o nome do seu novo caderno para criá-lo!"
         cancel={() => setVisible(false)}
