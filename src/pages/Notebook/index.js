@@ -20,23 +20,27 @@ import ModalDelete from "../../components/ModalDelete";
 import { remove } from "../../store/modules/notebook/actions";
 import history from "../../services/history";
 import ModalCreateNote from "../../components/ModalCreateNote";
-import { createNote } from "../../store/modules/notebook/actions";
+import ModalCreateNotebook from "../../components/ModalCreateNotebook";
+import { createNote, edit } from "../../store/modules/notebook/actions";
 
 function Notebook({ location }) {
   const notebooks = useSelector(state => state.notebook.notebooks);
+  const [notebook, setNotebook] = useState(null);
   const [visibleDelete, setVisibleDelete] = useState(false);
   const [visibleCreate, setVisibleCreate] = useState(false);
-  const { notebook } = Object(location.state);
+  const [visibleEdit, setVisibleEdit] = useState(false);
+  const {
+    notebook: { id }
+  } = Object(location.state);
   const [notes, setNotes] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const { notes: allNotes } = notebooks.filter(
-      item => item.id === notebook.id
-    )[0];
+    const notebook = notebooks.filter(item => item.id === id)[0];
 
-    setNotes(allNotes);
-  }, [notebook.id, notebooks]);
+    setNotes(notebook.notes);
+    setNotebook(notebook);
+  }, [id, notebooks]);
 
   function handleDateFormated(date) {
     return differenceInDays(new Date(date), new Date())
@@ -52,11 +56,11 @@ function Notebook({ location }) {
   }
 
   function handleRemoveNotebook() {
-    dispatch(remove(notebook.id));
+    dispatch(remove(id));
     history.push("/");
   }
 
-  return (
+  return notebook ? (
     <Container>
       <ModalDelete
         visible={visibleDelete}
@@ -70,7 +74,15 @@ function Notebook({ location }) {
         title="Nova nota"
         message="Defina o título e a descrição da sua nova nota para criá-la!"
         cancel={() => setVisibleCreate(false)}
-        confirm={data => dispatch(createNote(data, notebook.id))}
+        confirm={data => dispatch(createNote(data, id))}
+      />
+      <ModalCreateNotebook
+        visible={visibleEdit}
+        title="Editar caderno"
+        button="Salvar caderno"
+        message="Defina o novo nome do seu caderno para editá-lo!"
+        cancel={() => setVisibleEdit(false)}
+        confirm={data => dispatch(edit({ ...data, id: id }))}
       />
       <Content>
         <Wrapper>
@@ -94,7 +106,7 @@ function Notebook({ location }) {
                       <span>Editar caderno</span>
                     </>
                   ),
-                  action: () => {}
+                  action: () => setVisibleEdit(true)
                 },
                 {
                   children: (
@@ -131,7 +143,7 @@ function Notebook({ location }) {
         </Notes>
       </Content>
     </Container>
-  );
+  ) : null;
 }
 
 export default Notebook;

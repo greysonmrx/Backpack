@@ -18,3 +18,10 @@ export function createNote(data, id) {
     payload: { data, id }
   };
 }
+
+export function edit(data) {
+  return {
+    type: "@notebook/EDIT",
+    payload: data
+  };
+}
