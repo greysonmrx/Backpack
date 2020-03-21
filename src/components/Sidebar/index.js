@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { MdEventNote, MdCheckCircle, MdBook, MdSettings } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 
@@ -16,10 +17,12 @@ import {
 import history from "../../services/history";
 import Logo from "../../assets/logo-color-extended.png";
 import ModalCreate from "../ModalCreate";
+import { create } from "../../store/modules/notebook/actions";
 
 function Sidebar() {
   const [notebooks] = useState([]);
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   function handleActiveLink(name) {
     return history.location.pathname.split("/")[1] === name;
@@ -31,7 +34,7 @@ function Sidebar() {
         title="Novo caderno"
         message="Defina o nome do seu novo caderno para criá-lo!"
         cancel={() => setVisible(false)}
-        confirm={console.log}
+        confirm={data => dispatch(create(data))}
         visible={visible}
       />
       <Wrapper>
