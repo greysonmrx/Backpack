@@ -65,10 +65,10 @@ function Sidebar() {
               <Item
                 key={notebook.id}
                 to={{
-                  pathname: `/notebook/${notebook.name}`,
+                  pathname: `/notebook/${notebook.id}`,
                   state: { notebook }
                 }}
-                active={handleActiveLink(notebook.name, 2) ? 1 : 0}
+                active={handleActiveLink(notebook.id, 2) ? 1 : 0}
               >
                 <MdBook size={20} />
                 <span>{notebook.name}</span>
