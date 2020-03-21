@@ -9,6 +9,7 @@ import AddTask from "../pages/AddTask";
 import AddLesson from "../pages/AddLesson";
 import EditLesson from "../pages/EditLesson";
 import EditTask from "../pages/EditTask";
+import Notebook from "../pages/Notebook";
 
 export default function Routes() {
   return (
@@ -19,6 +20,7 @@ export default function Routes() {
       <Route path="/addlesson" exact component={AddLesson} />
       <Route path="/editlesson" exact component={EditLesson} />
       <Route path="/edittask" exact component={EditTask} />
+      <Route path="/notebook" component={Notebook} />
     </Switch>
   );
 }
