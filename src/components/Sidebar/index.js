@@ -24,8 +24,8 @@ function Sidebar() {
   const dispatch = useDispatch();
   const notebooks = useSelector(state => state.notebook.notebooks);
 
-  function handleActiveLink(name) {
-    return history.location.pathname.split("/")[1] === name;
+  function handleActiveLink(name, index) {
+    return history.location.pathname.split("/")[index] === name;
   }
 
   return (
@@ -34,7 +34,7 @@ function Sidebar() {
         title="Novo caderno"
         message="Defina o nome do seu novo caderno para criá-lo!"
         cancel={() => setVisible(false)}
-        confirm={data => dispatch(create(data))}
+        confirm={data => dispatch(create({ ...data, notes: [] }))}
         visible={visible}
       />
       <Wrapper>
@@ -43,13 +43,13 @@ function Sidebar() {
         </Header>
         <Menu>
           <Items>
-            <Item single={1} active={handleActiveLink("") ? 1 : 0} to="/">
+            <Item single={1} active={handleActiveLink("", 1) ? 1 : 0} to="/">
               <MdEventNote size={23} />
               <span>Calendário</span>
             </Item>
             <Item
               single={1}
-              active={handleActiveLink("tasks") ? 1 : 0}
+              active={handleActiveLink("tasks", 1) ? 1 : 0}
               to="/tasks"
             >
               <MdCheckCircle size={23} />
@@ -62,7 +62,14 @@ function Sidebar() {
               </button>
             </Title>
             {notebooks.map(notebook => (
-              <Item key={notebook.id}>
+              <Item
+                key={notebook.id}
+                to={{
+                  pathname: `/notebook/${notebook.name}`,
+                  state: { notebook }
+                }}
+                active={handleActiveLink(notebook.name, 2) ? 1 : 0}
+              >
                 <MdBook size={20} />
                 <span>{notebook.name}</span>
               </Item>
