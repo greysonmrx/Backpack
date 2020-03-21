@@ -43,6 +43,7 @@ export const Notes = styled.div`
 
 export const Scroll = styled(PerfectScrollBar)`
   max-height: 100%;
+  padding: 8px;
 `;
 
 export const Note = styled.button`
