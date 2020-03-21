@@ -29,7 +29,7 @@ function AddTask() {
 
       formRef.current.setErrors({});
 
-      const randomBytes = promisify(crypto.randomBytes)(256);
+      const randomBytes = await promisify(crypto.randomBytes)(256);
 
       dispatch(
         create({
