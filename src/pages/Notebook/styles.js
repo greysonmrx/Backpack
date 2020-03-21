@@ -43,15 +43,16 @@ export const Notes = styled.div`
 
 export const Scroll = styled(PerfectScrollBar)`
   max-height: 100%;
-  padding: 10px 10px;
 `;
 
 export const Note = styled.button`
-  background: none;
+  background: #f9f9f9;
   border: none;
   text-align: left;
+  width: 100%;
   padding: 10px 15px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
+  border-bottom-color: #dddddd;
 
   &:hover {
     border-color: #3333cc;
@@ -77,4 +78,14 @@ export const Note = styled.button`
     -webkit-line-clamp: 2;
     color: #333333;
   }
+`;
+
+export const Empty = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  padding: 20px;
+  font-size: 17px;
 `;

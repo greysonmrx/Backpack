@@ -10,7 +10,8 @@ import {
   Title,
   Notes,
   Scroll,
-  Note
+  Note,
+  Empty
 } from "./styles";
 import Dropdown from "../../components/Dropdown";
 import ModalDelete from "../../components/ModalDelete";
@@ -80,13 +81,21 @@ function Notebook({ location }) {
         </Wrapper>
         <Notes>
           <Scroll>
-            {notebook.notes.map(note => (
-              <Note key={note.id}>
-                <h3>{note.title}</h3>
-                <time>{note.time}</time>
-                <p>{note.description}</p>
-              </Note>
-            ))}
+            {notebook.notes.length === 0 ? (
+              <Empty>
+                <span>Clique no botão de opções para criar uma nova nota</span>
+              </Empty>
+            ) : (
+              <>
+                {notebook.notes.map(note => (
+                  <Note key={note.id}>
+                    <h3>{note.title}</h3>
+                    <time>{note.time}</time>
+                    <p>{note.description}</p>
+                  </Note>
+                ))}
+              </>
+            )}
           </Scroll>
         </Notes>
       </Content>
