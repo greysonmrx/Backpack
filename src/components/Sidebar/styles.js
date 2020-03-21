@@ -4,21 +4,26 @@ import { Link } from "react-router-dom";
 import PerfectScrollBar from "react-perfect-scrollbar";
 
 export const Container = styled.div`
-  position: relative;
   user-select: none;
   height: 100%;
   background: #f9f9f9;
   width: 280px;
   min-width: 280px;
   padding: 25px;
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 
   footer {
     position: absolute;
-    width: calc(100% - 50px);
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    bottom: 20px;
+    bottom: 0;
     text-align: center;
     font-weight: 400;
     color: #666666;
