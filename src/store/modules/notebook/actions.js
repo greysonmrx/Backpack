@@ -11,3 +11,10 @@ export function remove(id) {
     payload: id
   };
 }
+
+export function createNote(data, id) {
+  return {
+    type: "@notebook/CREATE_NOTE",
+    payload: { data, id }
+  };
+}

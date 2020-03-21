@@ -18,6 +18,20 @@ export default function notebook(state = INITIAL_STATE, action) {
         );
       });
     }
+    case "@notebook/CREATE_NOTE": {
+      return produce(state, draft => {
+        draft.notebooks = state.notebooks.map(notebook => {
+          if (notebook.id === action.payload.id) {
+            return {
+              ...notebook,
+              notes: [...notebook.notes, action.payload.data]
+            };
+          } else {
+            return notebook;
+          }
+        });
+      });
+    }
     default:
       return state;
   }
