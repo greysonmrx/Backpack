@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { MdEventNote, MdCheckCircle, MdBook, MdSettings } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 
@@ -20,9 +20,9 @@ import ModalCreate from "../ModalCreate";
 import { create } from "../../store/modules/notebook/actions";
 
 function Sidebar() {
-  const [notebooks] = useState([]);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+  const notebooks = useSelector(state => state.notebook.notebooks);
 
   function handleActiveLink(name) {
     return history.location.pathname.split("/")[1] === name;
