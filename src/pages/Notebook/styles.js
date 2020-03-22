@@ -103,7 +103,6 @@ export const EditorScroll = styled(PerfectScrollBar)`
 export const EditorContent = styled.div`
   width: calc(100% - 250px);
   max-height: calc(100% - 82px);
-  z-index: 100;
 
   header {
     padding: 22px 20px;
