@@ -47,6 +47,11 @@ function Notebook({ location }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setCurrentNoteId(null);
+    setCurrentNote(null);
+  }, [id]);
+
+  useEffect(() => {
     const notebook = notebooks.filter(item => item.id === id)[0];
 
     setNotes(notebook.notes);
