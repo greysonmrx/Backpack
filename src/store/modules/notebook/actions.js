@@ -25,3 +25,10 @@ export function edit(data) {
     payload: data
   };
 }
+
+export function editNoteContent(data) {
+  return {
+    type: "@notebook/EDIT_NOTE_CONTENT",
+    payload: data
+  };
+}

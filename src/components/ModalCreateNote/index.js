@@ -26,7 +26,12 @@ function ModalCreateNote({ title, message, cancel, confirm, visible }) {
 
       const randomBytes = await promisify(crypto.randomBytes)(256);
 
-      confirm({ id: randomBytes.toString("hex"), ...data, time: new Date() });
+      confirm({
+        id: randomBytes.toString("hex"),
+        ...data,
+        time: new Date(),
+        content: ""
+      });
       cancel();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {

@@ -13,7 +13,9 @@ import {
   Notes,
   Scroll,
   Note,
-  Empty
+  Empty,
+  EditorContent,
+  EditorScroll
 } from "./styles";
 import Dropdown from "../../components/Dropdown";
 import ModalDelete from "../../components/ModalDelete";
@@ -21,7 +23,12 @@ import { remove } from "../../store/modules/notebook/actions";
 import history from "../../services/history";
 import ModalCreateNote from "../../components/ModalCreateNote";
 import ModalCreateNotebook from "../../components/ModalCreateNotebook";
-import { createNote, edit } from "../../store/modules/notebook/actions";
+import {
+  createNote,
+  edit,
+  editNoteContent
+} from "../../store/modules/notebook/actions";
+import Editor from "../../components/Editor";
 
 function Notebook({ location }) {
   const notebooks = useSelector(state => state.notebook.notebooks);
@@ -29,9 +36,13 @@ function Notebook({ location }) {
   const [visibleDelete, setVisibleDelete] = useState(false);
   const [visibleCreate, setVisibleCreate] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState(false);
+  const [currentNoteId, setCurrentNoteId] = useState(null);
+  const [currentNote, setCurrentNote] = useState(null);
   const {
     notebook: { id }
   } = Object(location.state);
+  const [value, setValue] = useState();
+  const [defaultValue, setDefaultValue] = useState();
   const [notes, setNotes] = useState([]);
   const dispatch = useDispatch();
 
@@ -41,6 +52,21 @@ function Notebook({ location }) {
     setNotes(notebook.notes);
     setNotebook(notebook);
   }, [id, notebooks]);
+
+  useEffect(() => {
+    if (currentNoteId) {
+      dispatch(
+        editNoteContent({ id: currentNoteId, notebookId: id, content: value })
+      );
+    }
+  }, [value, currentNoteId, dispatch, id]);
+
+  function handleSelectNote(noteId, noteTitle, content) {
+    setValue(content);
+    setCurrentNoteId(noteId);
+    setCurrentNote(noteTitle);
+    setDefaultValue(content);
+  }
 
   function handleDateFormated(date) {
     return differenceInDays(new Date(date), new Date())
@@ -131,7 +157,13 @@ function Notebook({ location }) {
             ) : (
               <>
                 {notes.map(note => (
-                  <Note key={note.id}>
+                  <Note
+                    key={note.id}
+                    active={currentNoteId === note.id}
+                    onClick={() =>
+                      handleSelectNote(note.id, note.title, note.content)
+                    }
+                  >
                     <h3>{note.title}</h3>
                     <time>{handleDateFormated(note.time)}</time>
                     <p>{note.description}</p>
@@ -142,6 +174,43 @@ function Notebook({ location }) {
           </Scroll>
         </Notes>
       </Content>
+      {currentNoteId ? (
+        <EditorContent>
+          <header>
+            <h1>{currentNote}</h1>
+            <Dropdown
+              options={[
+                {
+                  children: (
+                    <>
+                      <MdCreate />
+                      <span>Editar nota</span>
+                    </>
+                  ),
+                  action: () => {}
+                },
+                {
+                  children: (
+                    <>
+                      <MdDelete />
+                      <span>Excluir nota</span>
+                    </>
+                  ),
+                  action: () => {}
+                }
+              ]}
+            />
+          </header>
+          <EditorScroll>
+            <Editor initialValue={defaultValue} onChange={setValue} />
+          </EditorScroll>
+        </EditorContent>
+      ) : (
+        <Empty>
+          <h1>Nenhuma nota selecionada</h1>
+          <p>Selecione uma nota ou crie uma nova para começar a editá-la!</p>
+        </Empty>
+      )}
     </Container>
   ) : null;
 }

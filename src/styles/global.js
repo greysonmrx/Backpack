@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import "react-quill/dist/quill.snow.css";
 
 export default createGlobalStyle`
   * {

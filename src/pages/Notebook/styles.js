@@ -5,12 +5,14 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   background: #ffffff;
+  display: flex;
 `;
 
 export const Content = styled.div`
   background: #fcfcfc;
   height: 100%;
   width: 250px;
+  min-width: 250px;
 `;
 
 export const Header = styled.header`
@@ -52,8 +54,9 @@ export const Note = styled.button`
   text-align: left;
   width: 100%;
   padding: 10px 15px;
-  border: 1px solid transparent;
-  border-bottom-color: #dddddd;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+  border-color: ${props => (props.active ? "#3333cc" : "transparent")};
 
   &:hover {
     border-color: #3333cc;
@@ -85,8 +88,27 @@ export const Empty = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   text-align: center;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   font-size: 17px;
+`;
+
+export const EditorScroll = styled(PerfectScrollBar)`
+  max-height: 100%;
+`;
+
+export const EditorContent = styled.div`
+  width: calc(100% - 250px);
+  max-height: calc(100% - 82px);
+  z-index: 100;
+
+  header {
+    padding: 22px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
