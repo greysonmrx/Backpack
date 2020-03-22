@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
 import { MdSave } from "react-icons/md";
 import * as Yup from "yup";
+import crypto from "crypto";
+import { promisify } from "util";
 
 import { Container, Header, Wrapper, Button, Form, Colors } from "./styles";
 import Input from "../../components/Input";
@@ -34,8 +36,10 @@ function AddLesson() {
 
       formRef.current.setErrors({});
 
+      const randomBytes = await promisify(crypto.randomBytes)(256);
+
       const formatedData = {
-        id: Math.random(),
+        id: randomBytes.toString("hex"),
         name: data.name,
         color: data.color,
         day: data.day,
