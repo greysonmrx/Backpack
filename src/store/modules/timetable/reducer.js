@@ -33,7 +33,7 @@ const INITIAL_STATE = {
       lessons: []
     },
     {
-      id: 7,
+      id: 0,
       name: "Domingo",
       lessons: []
     }
