@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 
 import Route from "./Route";
 
@@ -21,6 +21,8 @@ export default function Routes() {
       <Route path="/editlesson" exact component={EditLesson} />
       <Route path="/edittask" exact component={EditTask} />
       <Route path="/notebook" component={Notebook} />
+
+      <Route component={() => <Redirect to="/" />} />
     </Switch>
   );
 }

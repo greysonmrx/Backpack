@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { FaTimes } from "react-icons/fa";
 import { MdDescription } from "react-icons/md";
 import * as Yup from "yup";
-import crypto from "crypto";
-import { promisify } from "util";
 
 import Input from "../Input";
 import { Container, Modal, Center, Icon, Exit, Button, Form } from "./styles";
@@ -24,10 +22,8 @@ function ModalCreateNote({ title, message, cancel, confirm, visible }) {
 
       formRef.current.setErrors({});
 
-      const randomBytes = await promisify(crypto.randomBytes)(256);
-
       confirm({
-        id: randomBytes.toString("hex"),
+        id: Math.random(),
         ...data,
         time: new Date(),
         content: ""

@@ -3,8 +3,6 @@ import { useDispatch } from "react-redux";
 import { FaTimes } from "react-icons/fa";
 import { MdSave } from "react-icons/md";
 import * as Yup from "yup";
-import crypto from "crypto";
-import { promisify } from "util";
 
 import { Container, Header, Wrapper, Button, Form } from "./styles";
 import Input from "../../components/Input";
@@ -29,11 +27,9 @@ function AddTask() {
 
       formRef.current.setErrors({});
 
-      const randomBytes = await promisify(crypto.randomBytes)(256);
-
       dispatch(
         create({
-          id: (await randomBytes).toString("hex"),
+          id: Math.random(),
           done: false,
           ...data
         })

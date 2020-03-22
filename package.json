@@ -1,19 +1,37 @@
 {
   "name": "backpack",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.3",
+  "private": false,
+  "author": {
+    "name": "Greyson Mascarenhas",
+    "email": "greysonmrx@gmail.com",
+    "url": "https://github.com/greysonmrx"
+  },
+  "homepage": "./",
   "main": "public/electron.js",
+  "build": {
+    "appId": "https://github.com/greysonmrx/Backpack",
+    "productName": "Backpack",
+    "copyright": "Copyright © 2019 Greyson",
+    "mac": {
+      "category": "public.education.utilities"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@unform/core": "^2.0.0",
     "@unform/web": "^2.0.0",
-    "concurrently": "^5.1.0",
     "cross-env": "^7.0.2",
     "date-fns": "^2.11.0",
-    "electron": "^8.1.1",
-    "electron-builder": "^22.4.1",
     "electron-is-dev": "^1.1.0",
     "history": "^4.10.1",
     "immer": "^6.0.2",
@@ -32,15 +50,17 @@
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",
     "styled-components": "^5.0.1",
-    "wait-on": "^4.0.1",
     "yup": "^0.28.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "dev": "concurrently  \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-build": "yarn build",
+    "electron-build": "electron-builder -w",
     "commit": "git-cz"
   },
   "eslintConfig": {
@@ -59,8 +79,15 @@
     ]
   },
   "devDependencies": {
+    "@rescripts/cli": "^0.0.11",
+    "@rescripts/rescript-env": "^0.0.10",
     "commitizen": "^4.0.3",
-    "cz-conventional-changelog": "3.1.0"
+    "concurrently": "^4.1.2",
+    "cz-conventional-changelog": "3.1.0",
+    "electron": "^6.0.4",
+    "electron-builder": "21.1.0",
+    "typescript": "^3.5.3",
+    "wait-on": "^3.3.0"
   },
   "config": {
     "commitizen": {

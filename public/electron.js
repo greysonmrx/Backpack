@@ -1,6 +1,6 @@
 const electron = require("electron");
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const { app } = electron;
+const { BrowserWindow } = electron;
 
 const path = require("path");
 const isDev = require("electron-is-dev");
@@ -17,16 +17,23 @@ function createWindow() {
       "src",
       "assets",
       "logo-color-simple.png"
-    )
+    ),
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
-  mainWindow.setMenu(null);
-  mainWindow.maximize();
+  // mainWindow.setMenu(null);
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../build/index.html")}`
+      : `file://${path.resolve(__dirname, "..", "build", "index.html")}`
   );
-  mainWindow.on("closed", () => (mainWindow = null));
+
+  mainWindow.webContents.openDevTools();
+
+  mainWindow.on("closed", () => {
+    mainWindow = null;
+  });
 }
 
 app.on("ready", createWindow);
