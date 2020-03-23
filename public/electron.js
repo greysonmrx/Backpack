@@ -9,13 +9,14 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    minHeight: 750,
+    minHeight: 650,
     minWidth: 1300,
     icon: path.resolve(__dirname, "icon.png"),
     webPreferences: {
       nodeIntegration: true
     }
   });
+  mainWindow.maximize();
   mainWindow.setMenu(null);
   mainWindow.loadURL(
     isDev
