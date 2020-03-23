@@ -12,7 +12,7 @@
   "build": {
     "appId": "https://github.com/greysonmrx/Backpack",
     "productName": "Backpack",
-    "copyright": "Copyright © 2019 Greyson",
+    "copyright": "Copyright © 2020 Greyson",
     "mac": {
       "category": "public.education.utilities"
     },
