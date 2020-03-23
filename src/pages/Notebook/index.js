@@ -26,7 +26,8 @@ import ModalCreateNotebook from "../../components/ModalCreateNotebook";
 import {
   createNote,
   edit,
-  editNoteContent
+  editNoteContent,
+  editNote
 } from "../../store/modules/notebook/actions";
 import Editor from "../../components/Editor";
 
@@ -39,6 +40,7 @@ function Notebook({ location }) {
   const [visibleDeleteNote, setVisibleDeleteNote] = useState(false);
   const [currentNoteId, setCurrentNoteId] = useState(null);
   const [currentNote, setCurrentNote] = useState(null);
+  const [visibleEditNote, setVisibleEditNote] = useState(false);
   const {
     notebook: { id }
   } = Object(location.state);
@@ -98,6 +100,11 @@ function Notebook({ location }) {
     setCurrentNote(null);
   }
 
+  function handleEditNote(data) {
+    dispatch(editNote({ ...data, id, currentNoteId }));
+    setCurrentNote(data.title);
+  }
+
   return notebook ? (
     <Container>
       <ModalDelete
@@ -120,6 +127,14 @@ function Notebook({ location }) {
         message="Defina o título e a descrição da sua nova nota para criá-la!"
         cancel={() => setVisibleCreate(false)}
         confirm={data => dispatch(createNote(data, id))}
+      />
+      <ModalCreateNote
+        visible={visibleEditNote}
+        title="Editar nota"
+        button="Salvar nota"
+        message="Defina o título e a descrição da sua nova nota para editá-la!"
+        cancel={() => setVisibleEditNote(false)}
+        confirm={handleEditNote}
       />
       <ModalCreateNotebook
         visible={visibleEdit}
@@ -206,7 +221,7 @@ function Notebook({ location }) {
                       <span>Editar nota</span>
                     </>
                   ),
-                  action: () => {}
+                  action: () => setVisibleEditNote(true)
                 },
                 {
                   children: (

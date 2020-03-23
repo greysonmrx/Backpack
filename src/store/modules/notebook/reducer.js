@@ -79,6 +79,30 @@ export default function notebook(state = INITIAL_STATE, action) {
         });
       });
     }
+    case "@notebook/EDIT_NOTE": {
+      return produce(state, draft => {
+        draft.notebooks = state.notebooks.map(notebook => {
+          if (action.payload.id === notebook.id) {
+            return {
+              ...notebook,
+              notes: notebook.notes.map(note => {
+                if (note.id === action.payload.currentNoteId) {
+                  return {
+                    ...note,
+                    title: action.payload.title,
+                    description: action.payload.description
+                  };
+                } else {
+                  return note;
+                }
+              })
+            };
+          } else {
+            return notebook;
+          }
+        });
+      });
+    }
     default:
       return state;
   }
