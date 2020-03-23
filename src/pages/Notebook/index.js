@@ -19,7 +19,7 @@ import {
 } from "./styles";
 import Dropdown from "../../components/Dropdown";
 import ModalDelete from "../../components/ModalDelete";
-import { remove } from "../../store/modules/notebook/actions";
+import { remove, removeNote } from "../../store/modules/notebook/actions";
 import history from "../../services/history";
 import ModalCreateNote from "../../components/ModalCreateNote";
 import ModalCreateNotebook from "../../components/ModalCreateNotebook";
@@ -36,6 +36,7 @@ function Notebook({ location }) {
   const [visibleDelete, setVisibleDelete] = useState(false);
   const [visibleCreate, setVisibleCreate] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState(false);
+  const [visibleDeleteNote, setVisibleDeleteNote] = useState(false);
   const [currentNoteId, setCurrentNoteId] = useState(null);
   const [currentNote, setCurrentNote] = useState(null);
   const {
@@ -91,6 +92,12 @@ function Notebook({ location }) {
     history.push("/");
   }
 
+  function handleRemoveNote() {
+    dispatch(removeNote({ id, currentNoteId }));
+    setCurrentNoteId(null);
+    setCurrentNote(null);
+  }
+
   return notebook ? (
     <Container>
       <ModalDelete
@@ -99,6 +106,13 @@ function Notebook({ location }) {
         message="Se você excluir este caderno, ele vai desaparecer para sempre. Tem certeza que deseja continuar?"
         cancel={() => setVisibleDelete(false)}
         confirm={handleRemoveNotebook}
+      />
+      <ModalDelete
+        visible={visibleDeleteNote}
+        title="Excluir esta nota?"
+        message="Se você excluir esta nota, ela vai desaparecer para sempre. Tem certeza que deseja continuar?"
+        cancel={() => setVisibleDeleteNote(false)}
+        confirm={handleRemoveNote}
       />
       <ModalCreateNote
         visible={visibleCreate}
@@ -201,7 +215,7 @@ function Notebook({ location }) {
                       <span>Excluir nota</span>
                     </>
                   ),
-                  action: () => {}
+                  action: () => setVisibleDeleteNote(true)
                 }
               ]}
             />

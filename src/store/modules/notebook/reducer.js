@@ -63,6 +63,22 @@ export default function notebook(state = INITIAL_STATE, action) {
         });
       });
     }
+    case "@notebook/REMOVE_NOTE": {
+      return produce(state, draft => {
+        draft.notebooks = state.notebooks.map(notebook => {
+          if (action.payload.id === notebook.id) {
+            return {
+              ...notebook,
+              notes: notebook.notes.filter(
+                item => item.id !== action.payload.currentNoteId
+              )
+            };
+          } else {
+            return notebook;
+          }
+        });
+      });
+    }
     default:
       return state;
   }

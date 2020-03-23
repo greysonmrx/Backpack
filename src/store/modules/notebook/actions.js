@@ -32,3 +32,10 @@ export function editNoteContent(data) {
     payload: data
   };
 }
+
+export function removeNote(data) {
+  return {
+    type: "@notebook/REMOVE_NOTE",
+    payload: data
+  };
+}
