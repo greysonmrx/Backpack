@@ -1,7 +1,5 @@
 const electron = require("electron");
-const { app } = electron;
-const { BrowserWindow } = electron;
-const { ipcMain, Notification } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification, Tray, Menu } = electron;
 
 const path = require("path");
 const isDev = require("electron-is-dev");
@@ -26,6 +24,7 @@ ipcMain.on("@notification/REQUEST", async (event, message) => {
 });
 
 let mainWindow;
+let tray;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -48,6 +47,16 @@ function createWindow() {
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
+
+  tray = new Tray(path.resolve(__dirname, "iconSmall.png"));
+
+  const contextMenu = Menu.buildFromTemplate([
+    { label: "Abrir", type: "normal", click: () => mainWindow.focus() },
+    { label: "Sair", type: "normal", click: () => mainWindow.close() }
+  ]);
+
+  tray.setToolTip("Backpack");
+  tray.setContextMenu(contextMenu);
 }
 
 app.on("ready", createWindow);
