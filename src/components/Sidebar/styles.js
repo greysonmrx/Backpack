@@ -101,6 +101,7 @@ export const Title = styled.h1`
     padding: 4px;
     background: #3333cc;
     border-radius: 5px;
+    margin-right: 10px;
   }
 
   svg {
