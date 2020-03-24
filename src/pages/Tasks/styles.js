@@ -63,7 +63,7 @@ export const Content = styled.div`
 `;
 
 export const Scroll = styled(PerfectScrollBar)`
-  max-width: 100%;
+  max-height: 100%;
 `;
 
 export const List = styled.ul`
