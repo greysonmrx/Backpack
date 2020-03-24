@@ -76,7 +76,7 @@ function Sidebar() {
             ))}
           </Items>
         </Menu>
-        <Button>
+        <Button onClick={() => history.push("/settings")}>
           <MdSettings />
           <span>Configurações</span>
         </Button>
