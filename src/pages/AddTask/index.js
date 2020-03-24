@@ -11,6 +11,7 @@ import Input from "../../components/Input";
 import history from "../../services/history";
 import SubmitButton from "../../components/Button";
 import { create } from "../../store/modules/task/actions";
+import { createNotification } from "../../services/notification";
 
 function AddTask() {
   const formRef = useRef(null);
@@ -29,7 +30,14 @@ function AddTask() {
 
       formRef.current.setErrors({});
 
+      const message = {
+        title: "Uma nova tarefa foi criada!",
+        body: `A tarefa ${data.title} foi criada`
+      };
+
       const randomBytes = await promisify(crypto.randomBytes)(256);
+
+      createNotification(message);
 
       dispatch(
         create({

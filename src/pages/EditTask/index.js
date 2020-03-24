@@ -9,6 +9,7 @@ import Input from "../../components/Input";
 import history from "../../services/history";
 import SubmitButton from "../../components/Button";
 import { edit } from "../../store/modules/task/actions";
+import { createNotification } from "../../services/notification";
 
 function EditTask({ location }) {
   const formRef = useRef(null);
@@ -27,6 +28,13 @@ function EditTask({ location }) {
       });
 
       formRef.current.setErrors({});
+
+      const message = {
+        title: "Tarefa editada com sucesso!",
+        body: `A tarefa ${data.title} foi editada`
+      };
+
+      createNotification(message);
 
       dispatch(edit({ ...data, id: initialData.id }));
     } catch (err) {

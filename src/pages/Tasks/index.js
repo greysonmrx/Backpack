@@ -21,11 +21,22 @@ import Checkmark from "../../components/Checkmark";
 import history from "../../services/history";
 import { toggleDone, remove } from "../../store/modules/task/actions";
 import ModalDelete from "../../components/ModalDelete";
+import { createNotification } from "../../services/notification";
 
 function Tasks() {
   const tasks = useSelector(state => state.task.tasks);
   const dispatch = useDispatch();
-  const [taskId, setTaskId] = useState(0);
+  const [currentTask, setCurrentTask] = useState(0);
+
+  function handleRemoveTask() {
+    const message = {
+      title: "Tarefa removida com sucesso!",
+      body: `A tarefa ${currentTask.title} foi removida`
+    };
+
+    createNotification(message);
+    dispatch(remove(currentTask.id));
+  }
 
   function handleRenderTasks() {
     return tasks.map(task => (
@@ -48,7 +59,10 @@ function Tasks() {
           >
             <MdEdit />
           </Action>
-          <Action color="#e53935" onClick={() => setTaskId(task.id)}>
+          <Action
+            color="#e53935"
+            onClick={() => setCurrentTask({ id: task.id, title: task.title })}
+          >
             <MdDelete />
           </Action>
         </Right>
@@ -59,11 +73,11 @@ function Tasks() {
   return (
     <Container>
       <ModalDelete
-        visible={!!taskId}
+        visible={!!currentTask}
         title="Excluir esta tarefa?"
         message="Se você excluir esta tarefa, ela vai desaparecer para sempre. Tem certeza que deseja continuar?"
-        cancel={() => setTaskId(0)}
-        confirm={() => dispatch(remove(taskId))}
+        cancel={() => setCurrentTask(0)}
+        confirm={handleRemoveTask}
       />
       <Header>
         <Wrapper>

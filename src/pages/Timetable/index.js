@@ -21,11 +21,22 @@ import history from "../../services/history";
 import Dropdown from "../../components/Dropdown";
 import { remove } from "../../store/modules/timetable/actions";
 import ModalDelete from "../../components/ModalDelete";
+import { createNotification } from "../../services/notification";
 
 function Timetable() {
   const [lessonInfo, setLessonInfo] = useState(0);
   const data = useSelector(state => state.timetable.data);
   const dispatch = useDispatch();
+
+  function handleRemoveLesson() {
+    const message = {
+      title: "Aula removida com sucesso!",
+      body: `A aula ${lessonInfo.name} foi removida`
+    };
+
+    createNotification(message);
+    dispatch(remove(lessonInfo.id, lessonInfo.day));
+  }
 
   function handleEmptyDays() {
     let empty = true;
@@ -71,7 +82,8 @@ function Timetable() {
                           action: () =>
                             setLessonInfo({
                               id: lesson.id,
-                              day: day.name
+                              day: day.name,
+                              name: lesson.name
                             }),
                           children: (
                             <>
@@ -108,7 +120,7 @@ function Timetable() {
         title="Excluir esta aula?"
         message="Se você excluir esta aula, ela vai desaparecer para sempre. Tem certeza que deseja continuar?"
         cancel={() => setLessonInfo(0)}
-        confirm={() => dispatch(remove(lessonInfo.id, lessonInfo.day))}
+        confirm={handleRemoveLesson}
       />
       <Header>
         <Wrapper>

@@ -30,6 +30,7 @@ import {
   editNote
 } from "../../store/modules/notebook/actions";
 import Editor from "../../components/Editor";
+import { createNotification } from "../../services/notification";
 
 function Notebook({ location }) {
   const notebooks = useSelector(state => state.notebook.notebooks);
@@ -93,18 +94,56 @@ function Notebook({ location }) {
   }
 
   function handleRemoveNotebook() {
+    const message = {
+      title: "Caderno removido com sucesso!",
+      body: `O caderno ${notebook.name} foi removido`
+    };
+
+    createNotification(message);
     dispatch(remove(id));
     history.push("/");
   }
 
   function handleRemoveNote() {
+    const message = {
+      title: "Nota removida com sucesso!",
+      body: `A nota ${currentNote} foi removida`
+    };
+
+    createNotification(message);
     dispatch(removeNote({ id, currentNoteId }));
     setCurrentNoteId(null);
     setCurrentNote(null);
     setCurrentNoteDescription(null);
   }
 
+  function handleCreateNote(data) {
+    const message = {
+      title: "Nota criada com sucesso!",
+      body: `A nota ${data.title} foi criada`
+    };
+
+    createNotification(message);
+    dispatch(createNote(data, id));
+  }
+
+  function handleEditNotebook(data) {
+    const message = {
+      title: "Caderno editado com sucesso!",
+      body: `O caderno ${data.name} foi editado`
+    };
+
+    createNotification(message);
+    dispatch(edit({ ...data, id: id }));
+  }
+
   function handleEditNote(data) {
+    const message = {
+      title: "Nota editada com sucesso!",
+      body: `A nota ${data.title} foi editada`
+    };
+
+    createNotification(message);
     dispatch(editNote({ ...data, id, currentNoteId }));
     setCurrentNote(data.title);
     setCurrentNoteDescription(data.description);
@@ -131,7 +170,7 @@ function Notebook({ location }) {
         title="Nova nota"
         message="Defina o título e a descrição da sua nova nota para criá-la!"
         cancel={() => setVisibleCreate(false)}
-        confirm={data => dispatch(createNote(data, id))}
+        confirm={handleCreateNote}
       />
       <ModalCreateNote
         visible={visibleEditNote}
@@ -154,7 +193,7 @@ function Notebook({ location }) {
         initialData={{
           name: notebook.name
         }}
-        confirm={data => dispatch(edit({ ...data, id: id }))}
+        confirm={handleEditNotebook}
       />
       <Content>
         <Wrapper>

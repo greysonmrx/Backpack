@@ -1,9 +1,29 @@
 const electron = require("electron");
 const { app } = electron;
 const { BrowserWindow } = electron;
+const { ipcMain, Notification } = require("electron");
 
 const path = require("path");
 const isDev = require("electron-is-dev");
+
+ipcMain.on("@notification/REQUEST", async (event, message) => {
+  try {
+    const { title, body } = message;
+
+    const notification = new Notification({
+      title,
+      body,
+      icon: path.resolve(__dirname, "iconSmall.png")
+    });
+
+    notification.show();
+  } catch (err) {
+    event.sender.send(
+      "@notification/FAILURE",
+      "Houve um erro na criação da notificação"
+    );
+  }
+});
 
 let mainWindow;
 
@@ -16,15 +36,14 @@ function createWindow() {
       nodeIntegration: true
     }
   });
-  mainWindow.maximize();
-  mainWindow.setMenu(null);
+
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
       : `file://${path.resolve(__dirname, "..", "build", "index.html")}`
   );
 
-  // mainWindow.webContents.openDevTools();
+  isDev ? mainWindow.webContents.openDevTools() : mainWindow.setMenu(null);
 
   mainWindow.on("closed", () => {
     mainWindow = null;

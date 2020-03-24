@@ -11,6 +11,7 @@ import SubmitButton from "../../components/Button";
 import SelectInput from "../../components/SelectInput";
 import SelectColor from "../../components/SelectColor";
 import { edit } from "../../store/modules/timetable/actions";
+import { createNotification } from "../../services/notification";
 
 function EditLesson({ location }) {
   const formRef = useRef(null);
@@ -53,6 +54,13 @@ function EditLesson({ location }) {
         classroom: data.classroom,
         teacher: data.teacher
       };
+
+      const message = {
+        title: "Aula editada com sucesso!",
+        body: `A aula ${data.name} foi editada`
+      };
+
+      createNotification(message);
 
       dispatch(edit(formatedData));
     } catch (err) {

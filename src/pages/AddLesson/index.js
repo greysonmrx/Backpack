@@ -14,6 +14,7 @@ import SelectInput from "../../components/SelectInput";
 import SelectColor from "../../components/SelectColor";
 
 import { create } from "../../store/modules/timetable/actions";
+import { createNotification } from "../../services/notification";
 
 function AddLesson() {
   const formRef = useRef(null);
@@ -47,6 +48,13 @@ function AddLesson() {
         classroom: data.classroom,
         teacher: data.teacher
       };
+
+      const message = {
+        title: "Uma nova aula foi criada!",
+        body: `A aula ${data.name} foi criada`
+      };
+
+      createNotification(message);
 
       dispatch(create(formatedData));
     } catch (err) {
