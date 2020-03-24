@@ -151,6 +151,9 @@ function Notebook({ location }) {
         button="Salvar caderno"
         message="Defina o novo nome do seu caderno para editá-lo!"
         cancel={() => setVisibleEdit(false)}
+        initialData={{
+          name: notebook.name
+        }}
         confirm={data => dispatch(edit({ ...data, id: id }))}
       />
       <Content>

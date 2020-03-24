@@ -15,7 +15,8 @@ function ModalCreateNotebook({
   cancel,
   confirm,
   visible,
-  button
+  button,
+  initialData
 }) {
   const formRef = useRef(null);
 
@@ -58,7 +59,7 @@ function ModalCreateNotebook({
           <h3>{title}</h3>
           <p>{message}</p>
         </Center>
-        <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form ref={formRef} onSubmit={handleSubmit} initialData={initialData}>
           <Input name="name" placeholder="Ex.: Cálculo 2" />
           <Button type="submit">{button ? button : "Adicionar caderno"}</Button>
         </Form>
@@ -78,5 +79,6 @@ ModalCreateNotebook.propTypes = {
   visible: PropTypes.bool.isRequired,
   cancel: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
-  button: PropTypes.string
+  button: PropTypes.string,
+  initialData: PropTypes.object
 };
