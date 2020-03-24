@@ -40,6 +40,7 @@ function Notebook({ location }) {
   const [visibleDeleteNote, setVisibleDeleteNote] = useState(false);
   const [currentNoteId, setCurrentNoteId] = useState(null);
   const [currentNote, setCurrentNote] = useState(null);
+  const [currentNoteDescription, setCurrentNoteDescription] = useState(null);
   const [visibleEditNote, setVisibleEditNote] = useState(false);
   const {
     notebook: { id }
@@ -52,6 +53,7 @@ function Notebook({ location }) {
   useEffect(() => {
     setCurrentNoteId(null);
     setCurrentNote(null);
+    setCurrentNoteDescription(null);
   }, [id]);
 
   useEffect(() => {
@@ -69,11 +71,12 @@ function Notebook({ location }) {
     }
   }, [value, currentNoteId, dispatch, id]);
 
-  function handleSelectNote(noteId, noteTitle, content) {
+  function handleSelectNote(noteId, noteTitle, content, noteDescription) {
     setValue(content);
     setCurrentNoteId(noteId);
     setCurrentNote(noteTitle);
     setDefaultValue(content);
+    setCurrentNoteDescription(noteDescription);
   }
 
   function handleDateFormated(date) {
@@ -98,11 +101,13 @@ function Notebook({ location }) {
     dispatch(removeNote({ id, currentNoteId }));
     setCurrentNoteId(null);
     setCurrentNote(null);
+    setCurrentNoteDescription(null);
   }
 
   function handleEditNote(data) {
     dispatch(editNote({ ...data, id, currentNoteId }));
     setCurrentNote(data.title);
+    setCurrentNoteDescription(data.description);
   }
 
   return notebook ? (
@@ -134,6 +139,10 @@ function Notebook({ location }) {
         button="Salvar nota"
         message="Defina o título e a descrição da sua nova nota para editá-la!"
         cancel={() => setVisibleEditNote(false)}
+        initialData={{
+          title: currentNote,
+          description: currentNoteDescription
+        }}
         confirm={handleEditNote}
       />
       <ModalCreateNotebook
@@ -195,7 +204,12 @@ function Notebook({ location }) {
                     key={note.id}
                     active={currentNoteId === note.id}
                     onClick={() =>
-                      handleSelectNote(note.id, note.title, note.content)
+                      handleSelectNote(
+                        note.id,
+                        note.title,
+                        note.content,
+                        note.description
+                      )
                     }
                   >
                     <h3>{note.title}</h3>

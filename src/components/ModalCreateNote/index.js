@@ -9,7 +9,15 @@ import { promisify } from "util";
 import Input from "../Input";
 import { Container, Modal, Center, Icon, Exit, Button, Form } from "./styles";
 
-function ModalCreateNote({ title, message, cancel, confirm, visible, button }) {
+function ModalCreateNote({
+  title,
+  message,
+  cancel,
+  confirm,
+  visible,
+  button,
+  initialData
+}) {
   const formRef = useRef(null);
 
   async function handleSubmit(data) {
@@ -56,7 +64,7 @@ function ModalCreateNote({ title, message, cancel, confirm, visible, button }) {
           <h3>{title}</h3>
           <p>{message}</p>
         </Center>
-        <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form ref={formRef} onSubmit={handleSubmit} initialData={initialData}>
           <Input name="title" placeholder="Título da nota" />
           <Input
             name="description"
@@ -80,5 +88,6 @@ ModalCreateNote.propTypes = {
   visible: PropTypes.bool.isRequired,
   cancel: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
-  button: PropTypes.string
+  button: PropTypes.string,
+  initialData: PropTypes.object
 };
