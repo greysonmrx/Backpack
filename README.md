@@ -29,7 +29,7 @@ This app features all the features to improve your academic experience. Like the
 
 ## Getting started
 
-1. Clone this repo using `git clone git@github.com:greysonmrx/Backpack.git backpack`
+1. Clone this repo using `git clone https://github.com/greysonmrx/Backpack.git`
 2. Move yourself to the appropriate directory: `cd backpack`<br />
 3. Run `yarn` to install dependencies<br />
 4. Run `yarn dev` to start the app
