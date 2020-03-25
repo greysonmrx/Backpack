@@ -145,7 +145,7 @@ function AddLesson() {
                 { id: 4, value: "Quinta" },
                 { id: 5, value: "Sexta" },
                 { id: 6, value: "Sábado" },
-                { id: 7, value: "Domingo" }
+                { id: 0, value: "Domingo" }
               ]}
             />
             <Input
