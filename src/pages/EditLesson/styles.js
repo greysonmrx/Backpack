@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Form as UForm } from "@unform/web";
+import PerfectScrollBar from "react-perfect-scrollbar";
 
 export const Container = styled.div`
   width: calc(100% - 280px);
@@ -24,6 +25,10 @@ export const Header = styled.div`
 `;
 
 export const Wrapper = styled.div``;
+
+export const Scroll = styled(PerfectScrollBar)`
+  max-height: calc(100% - 160px);
+`;
 
 export const Button = styled.button`
   width: 50px;
