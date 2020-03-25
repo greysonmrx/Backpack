@@ -144,6 +144,7 @@ function EditLesson({ location }) {
               name="day"
               title="Dia da semana"
               style={{ marginRight: 20 }}
+              disabled
               options={[
                 { id: 1, value: "Segunda" },
                 { id: 2, value: "Terça" },
