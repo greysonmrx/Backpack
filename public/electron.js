@@ -51,7 +51,7 @@ function createWindow() {
   tray = new Tray(path.resolve(__dirname, "iconSmall.png"));
 
   const contextMenu = Menu.buildFromTemplate([
-    { label: "Abrir", type: "normal", click: () => mainWindow.focus() },
+    { label: "Abrir", type: "normal", click: () => mainWindow.show() },
     { label: "Sair", type: "normal", click: () => mainWindow.close() }
   ]);
 
