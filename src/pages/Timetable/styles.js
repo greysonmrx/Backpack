@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darken, parseToRgb } from "polished";
+import { darken } from "polished";
 import PerfectScrollBar from "react-perfect-scrollbar";
 
 export const Container = styled.div`
@@ -64,68 +64,6 @@ export const Content = styled.div`
 
 export const Scroll = styled(PerfectScrollBar)`
   max-width: 100%;
-`;
-
-export const Grid = styled.div`
-  display: inline-flex;
-  padding: 20px 30px 0 30px;
-`;
-
-export const Cards = styled.div`
-  margin-left: 20px;
-
-  h2 {
-    color: ${props => (props.isToday ? "#3333cc" : "#666666")};
-    text-transform: uppercase;
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-`;
-
-export const Card = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 250px;
-  height: 150px;
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 8px solid ${props => props.color};
-  background: ${props => {
-    const { red, green, blue } = parseToRgb(props.color);
-
-    return `rgba(${red}, ${green}, ${blue}, 0.1)`;
-  }};
-  margin-bottom: 20px;
-  color: #202124;
-
-  time {
-    color: #666666;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  p {
-    font-size: 16px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
-
-export const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  h3 {
-    width: 75%;
-    font-size: 18.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 `;
 
 export const Empty = styled.div`

@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { MdEdit, MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 
 import {
   Container,
@@ -11,37 +9,20 @@ import {
   Button,
   Content,
   Scroll,
-  Grid,
-  Cards,
-  Card,
-  Top,
-  Empty
+  Empty,
 } from "./styles";
+
 import history from "../../services/history";
-import Dropdown from "../../components/Dropdown";
-import { remove } from "../../store/modules/timetable/actions";
-import ModalDelete from "../../components/ModalDelete";
-import { createNotification } from "../../services/notification";
+
+import Board from "../../components/Board";
 
 function Timetable() {
-  const [lessonInfo, setLessonInfo] = useState(0);
-  const data = useSelector(state => state.timetable.data);
-  const dispatch = useDispatch();
-
-  function handleRemoveLesson() {
-    const message = {
-      title: "Aula removida com sucesso!",
-      body: `A aula ${lessonInfo.name} foi removida`
-    };
-
-    createNotification(message);
-    dispatch(remove(lessonInfo.id, lessonInfo.day));
-  }
+  const data = useSelector((state) => state.timetable.data);
 
   function handleEmptyDays() {
     let empty = true;
 
-    data.forEach(day => {
+    data.forEach((day) => {
       if (day.lessons.length !== 0) {
         empty = false;
       }
@@ -50,78 +31,8 @@ function Timetable() {
     return empty;
   }
 
-  function handleRenderDays() {
-    let cards = [];
-
-    data.forEach(day => {
-      if (day.lessons.length !== 0) {
-        cards.push(
-          <Cards key={day.id} isToday={day.id === new Date().getDay()}>
-            <h2>{day.name}</h2>
-            {day.lessons.map(lesson => (
-              <Card key={lesson.id} color={lesson.color}>
-                <header>
-                  <Top>
-                    <h3>{lesson.name}</h3>
-                    <Dropdown
-                      options={[
-                        {
-                          action: () =>
-                            history.push({
-                              pathname: "/editlesson",
-                              state: { lesson }
-                            }),
-                          children: (
-                            <>
-                              <MdEdit />
-                              <span>Editar esta aula</span>
-                            </>
-                          )
-                        },
-                        {
-                          action: () =>
-                            setLessonInfo({
-                              id: lesson.id,
-                              day: day.name,
-                              name: lesson.name
-                            }),
-                          children: (
-                            <>
-                              <MdDelete />
-                              <span>Excluir esta aula</span>
-                            </>
-                          )
-                        }
-                      ]}
-                    />
-                  </Top>
-                  <time>{lesson.time}</time>
-                </header>
-                <p>
-                  {lesson.classroom}
-                  {lesson.teacher && lesson.classroom
-                    ? `, ${lesson.teacher}`
-                    : lesson.teacher}
-                </p>
-              </Card>
-            ))}
-          </Cards>
-        );
-      }
-    });
-
-    return cards;
-  }
-
   return (
     <Container>
-      <ModalDelete
-        visible={!!lessonInfo}
-        title="Excluir esta aula?"
-        message="Se você excluir esta aula, ela vai desaparecer para sempre. Tem certeza que deseja continuar?"
-        cancel={() => setLessonInfo(0)}
-        confirm={handleRemoveLesson}
-      />
       <Header>
         <Wrapper>
           <h1>Calendário</h1>
@@ -146,7 +57,7 @@ function Timetable() {
               </p>
             </Empty>
           ) : (
-            <Grid>{handleRenderDays()}</Grid>
+            <Board data={data} />
           )}
         </Scroll>
       </Content>
