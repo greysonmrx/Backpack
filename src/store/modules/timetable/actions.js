@@ -1,20 +1,20 @@
 export function create(data) {
   return {
     type: "@timetable/CREATE",
-    payload: data
+    payload: data,
   };
 }
 
 export function remove(id, day) {
   return {
     type: "@timetable/REMOVE",
-    payload: { id, day }
+    payload: { id, day },
   };
 }
 
-export function edit(data) {
+export function edit(data, initialDay) {
   return {
     type: "@timetable/EDIT",
-    payload: data
+    payload: { data, initialDay },
   };
 }

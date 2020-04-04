@@ -11,7 +11,7 @@ import {
   Button,
   Scroll,
   Form,
-  Colors
+  Colors,
 } from "./styles";
 import Input from "../../components/Input";
 import history from "../../services/history";
@@ -24,7 +24,7 @@ import { createNotification } from "../../services/notification";
 function EditLesson({ location }) {
   const formRef = useRef(null);
   const [disable, setDisable] = useState(false);
-  const { lesson: initialData } = Object(location.state);
+  const { data: initialData } = Object(location.state);
   const dispatch = useDispatch();
 
   function handleInitialData(data) {
@@ -32,7 +32,7 @@ function EditLesson({ location }) {
       ? {
           ...data,
           initialTime: data.time.split(" - ")[0],
-          finalTime: data.time.split(" - ")[1]
+          finalTime: data.time.split(" - ")[1],
         }
       : {};
   }
@@ -44,11 +44,11 @@ function EditLesson({ location }) {
           "A hora inicial da aula é obrigatória"
         ),
         finalTime: Yup.string().required("A hora final da aula é obrigatória"),
-        name: Yup.string().required("O nome da aula é obrigatório")
+        name: Yup.string().required("O nome da aula é obrigatório"),
       });
 
       await schema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       });
 
       formRef.current.setErrors({});
@@ -60,22 +60,22 @@ function EditLesson({ location }) {
         day: data.day,
         time: `${data.initialTime} - ${data.finalTime}`,
         classroom: data.classroom,
-        teacher: data.teacher
+        teacher: data.teacher,
       };
 
       const message = {
         title: "Aula editada com sucesso!",
-        body: `A aula ${data.name} foi editada`
+        body: `A aula ${data.name} foi editada`,
       };
 
       createNotification(message);
 
-      dispatch(edit(formatedData));
+      dispatch(edit(formatedData, initialData.day));
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
 
-        err.inner.forEach(error => {
+        err.inner.forEach((error) => {
           errorMessages[error.path] = error.message;
         });
 
@@ -144,7 +144,6 @@ function EditLesson({ location }) {
               name="day"
               title="Dia da semana"
               style={{ marginRight: 20 }}
-              disabled
               options={[
                 { id: 1, value: "Segunda" },
                 { id: 2, value: "Terça" },
@@ -152,7 +151,7 @@ function EditLesson({ location }) {
                 { id: 4, value: "Quinta" },
                 { id: 5, value: "Sexta" },
                 { id: 6, value: "Sábado" },
-                { id: 0, value: "Domingo" }
+                { id: 0, value: "Domingo" },
               ]}
             />
             <Input
@@ -182,7 +181,7 @@ function EditLesson({ location }) {
                 { color: "#FFD600" },
                 { color: "#FFAB00" },
                 { color: "#FF6D00" },
-                { color: "#DD2C00" }
+                { color: "#DD2C00" },
               ]}
             />
           </Colors>

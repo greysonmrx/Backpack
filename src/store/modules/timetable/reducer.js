@@ -5,46 +5,46 @@ const INITIAL_STATE = {
     {
       id: 1,
       name: "Segunda",
-      lessons: []
+      lessons: [],
     },
     {
       id: 2,
       name: "Terça",
-      lessons: []
+      lessons: [],
     },
     {
       id: 3,
       name: "Quarta",
-      lessons: []
+      lessons: [],
     },
     {
       id: 4,
       name: "Quinta",
-      lessons: []
+      lessons: [],
     },
     {
       id: 5,
       name: "Sexta",
-      lessons: []
+      lessons: [],
     },
     {
       id: 6,
       name: "Sábado",
-      lessons: []
+      lessons: [],
     },
     {
       id: 0,
       name: "Domingo",
-      lessons: []
-    }
-  ]
+      lessons: [],
+    },
+  ],
 };
 
 export default function timetable(state = INITIAL_STATE, action) {
   switch (action.type) {
     case "@timetable/CREATE": {
-      return produce(state, draft => {
-        draft.data = state.data.map(day => {
+      return produce(state, (draft) => {
+        draft.data = state.data.map((day) => {
           if (action.payload.day === day.name) {
             return { ...day, lessons: [...day.lessons, action.payload] };
           } else {
@@ -54,12 +54,14 @@ export default function timetable(state = INITIAL_STATE, action) {
       });
     }
     case "@timetable/REMOVE": {
-      return produce(state, draft => {
-        draft.data = state.data.map(day => {
+      return produce(state, (draft) => {
+        draft.data = state.data.map((day) => {
           if (action.payload.day === day.name) {
             return {
               ...day,
-              lessons: day.lessons.filter(item => item.id !== action.payload.id)
+              lessons: day.lessons.filter(
+                (item) => item.id !== action.payload.id
+              ),
             };
           } else {
             return day;
@@ -68,23 +70,37 @@ export default function timetable(state = INITIAL_STATE, action) {
       });
     }
     case "@timetable/EDIT": {
-      return produce(state, draft => {
-        draft.data = state.data.map(day => {
-          if (action.payload.day === day.name) {
-            return {
-              ...day,
-              lessons: day.lessons.map(lesson => {
-                if (lesson.id === action.payload.id) {
-                  return action.payload;
-                } else {
-                  return lesson;
-                }
-              })
-            };
-          } else {
-            return day;
-          }
-        });
+      return produce(state, (draft) => {
+        const {
+          data: { day: currentDay },
+          initialDay,
+        } = action.payload;
+
+        if (currentDay !== initialDay) {
+          const dataWithoutLesson = state.data.map((day) => {
+            if (initialDay === day.name) {
+              return {
+                ...day,
+                lessons: day.lessons.filter(
+                  (item) => item.id !== action.payload.data.id
+                ),
+              };
+            } else {
+              return day;
+            }
+          });
+
+          draft.data = dataWithoutLesson.map((day) => {
+            if (currentDay === day.name) {
+              return {
+                ...day,
+                lessons: [...day.lessons, action.payload.data],
+              };
+            } else {
+              return day;
+            }
+          });
+        }
       });
     }
     default:
