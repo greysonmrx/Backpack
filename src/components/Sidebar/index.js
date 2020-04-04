@@ -11,7 +11,7 @@ import {
   Title,
   Item,
   Button,
-  Wrapper
+  Wrapper,
 } from "./styles";
 
 import history from "../../services/history";
@@ -22,7 +22,7 @@ import { create } from "../../store/modules/notebook/actions";
 function Sidebar() {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
-  const notebooks = useSelector(state => state.notebook.notebooks);
+  const notebooks = useSelector((state) => state.notebook.notebooks);
 
   function handleActiveLink(name, index) {
     return history.location.pathname.split("/")[index] === name;
@@ -34,7 +34,7 @@ function Sidebar() {
         title="Novo caderno"
         message="Defina o nome do seu novo caderno para criá-lo!"
         cancel={() => setVisible(false)}
-        confirm={data => dispatch(create({ ...data, notes: [] }))}
+        confirm={(data) => dispatch(create({ ...data, notes: [] }))}
         visible={visible}
       />
       <Wrapper>
@@ -61,12 +61,12 @@ function Sidebar() {
                 <FaPlus />
               </button>
             </Title>
-            {notebooks.map(notebook => (
+            {notebooks.map((notebook) => (
               <Item
                 key={notebook.id}
                 to={{
                   pathname: `/notebook/${notebook.id}`,
-                  state: { notebook }
+                  state: { notebook },
                 }}
                 active={handleActiveLink(notebook.id, 2) ? 1 : 0}
               >

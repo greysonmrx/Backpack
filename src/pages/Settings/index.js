@@ -6,7 +6,7 @@ import Switch from "../../components/Switch";
 import { set } from "../../store/modules/setting/actions";
 
 function Settings() {
-  const { settings } = useSelector(state => state.setting);
+  const { settings } = useSelector((state) => state.setting);
   const dispatch = useDispatch();
 
   function handleToggle(index, value) {
@@ -30,7 +30,7 @@ function Settings() {
               <h3>Ativar notificações na área de trabalho</h3>
               <Switch
                 enable={settings[0].value}
-                onChange={value => handleToggle(0, value.target.checked)}
+                onChange={(value) => handleToggle(0, value.target.checked)}
               />
             </div>
           </Item>

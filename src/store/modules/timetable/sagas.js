@@ -17,5 +17,5 @@ export function editLesson() {
 export default all([
   takeLatest("@timetable/CREATE", createLesson),
   takeLatest("@timetable/REMOVE", removeLesson),
-  takeLatest("@timetable/EDIT", editLesson)
+  takeLatest("@timetable/EDIT", editLesson),
 ]);

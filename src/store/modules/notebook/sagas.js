@@ -21,5 +21,5 @@ export default all([
   takeLatest("@notebook/EDIT", edit),
   takeLatest("@notebook/EDIT_NOTE_CONTENT", editNoteContent),
   takeLatest("@notebook/REMOVE_NOTE", removeNote),
-  takeLatest("@notebook/EDIT_NOTE", editNote)
+  takeLatest("@notebook/EDIT_NOTE", editNote),
 ]);

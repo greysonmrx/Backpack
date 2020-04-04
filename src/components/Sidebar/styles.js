@@ -123,12 +123,12 @@ export const Item = styled(Link)`
   }
 
   svg {
-    color: ${props => (props.active ? "#3333cc" : "#444444")};
+    color: ${(props) => (props.active ? "#3333cc" : "#444444")};
     margin-right: 10px;
   }
 
   span {
-    color: ${props => (props.active ? "#3333cc" : "#202124")};
+    color: ${(props) => (props.active ? "#3333cc" : "#202124")};
     font-weight: 400;
     font-size: 16px;
     margin-top: 3px;

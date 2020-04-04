@@ -12,7 +12,7 @@ import {
   Content,
   Icon,
   Exit,
-  Button
+  Button,
 } from "./styles";
 
 function ModalDelete({ title, message, cancel, confirm, visible }) {
@@ -58,5 +58,5 @@ ModalDelete.propTypes = {
   message: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
   cancel: PropTypes.func.isRequired,
-  confirm: PropTypes.func.isRequired
+  confirm: PropTypes.func.isRequired,
 };

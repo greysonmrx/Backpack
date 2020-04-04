@@ -5,7 +5,7 @@ export const Container = styled.button`
   width: 300px;
   height: 50px;
   background: #3333cc;
-  opacity: ${props => (props.disabled ? ".35" : "1")};
+  opacity: ${(props) => (props.disabled ? ".35" : "1")};
   display: flex;
   justify-content: center;
   outline: none;
@@ -28,7 +28,7 @@ export const Container = styled.button`
   }
 
   :hover {
-    cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
-    background: ${props => (!props.disabled ? darken(0.1, "#3333cc") : null)};
+    cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+    background: ${(props) => (!props.disabled ? darken(0.1, "#3333cc") : null)};
   }
 `;

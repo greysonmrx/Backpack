@@ -17,5 +17,5 @@ function DefaultLayout({ children }) {
 export default DefaultLayout;
 
 DefaultLayout.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };

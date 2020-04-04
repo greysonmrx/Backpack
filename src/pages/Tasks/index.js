@@ -15,7 +15,7 @@ import {
   Task,
   Left,
   Right,
-  Action
+  Action,
 } from "./styles";
 import Checkmark from "../../components/Checkmark";
 import history from "../../services/history";
@@ -24,14 +24,14 @@ import ModalDelete from "../../components/ModalDelete";
 import { createNotification } from "../../services/notification";
 
 function Tasks() {
-  const tasks = useSelector(state => state.task.tasks);
+  const tasks = useSelector((state) => state.task.tasks);
   const dispatch = useDispatch();
   const [currentTask, setCurrentTask] = useState(0);
 
   function handleRemoveTask() {
     const message = {
       title: "Tarefa removida com sucesso!",
-      body: `A tarefa ${currentTask.title} foi removida`
+      body: `A tarefa ${currentTask.title} foi removida`,
     };
 
     createNotification(message);
@@ -39,7 +39,7 @@ function Tasks() {
   }
 
   function handleRenderTasks() {
-    return tasks.map(task => (
+    return tasks.map((task) => (
       <Task key={task.id}>
         <Left checked={task.done ? 1 : 0}>
           <label>

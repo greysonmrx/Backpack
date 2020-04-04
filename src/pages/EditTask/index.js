@@ -20,18 +20,18 @@ function EditTask({ location }) {
   async function handleSubmit(data) {
     try {
       const schema = Yup.object().shape({
-        title: Yup.string().required("O título é obrigatório")
+        title: Yup.string().required("O título é obrigatório"),
       });
 
       await schema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       });
 
       formRef.current.setErrors({});
 
       const message = {
         title: "Tarefa editada com sucesso!",
-        body: `A tarefa ${data.title} foi editada`
+        body: `A tarefa ${data.title} foi editada`,
       };
 
       createNotification(message);
@@ -41,7 +41,7 @@ function EditTask({ location }) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
 
-        err.inner.forEach(error => {
+        err.inner.forEach((error) => {
           errorMessages[error.path] = error.message;
         });
 

@@ -33,14 +33,14 @@ export const ButtonIcon = styled.button`
 
 export const Menu = styled.div`
   position: absolute;
-  display: ${props => (props.visible ? "flex" : "none")};
+  display: ${(props) => (props.visible ? "flex" : "none")};
   flex-direction: column;
   width: 200px;
   padding: 5px 0;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
-  left: ${props => (props.showLeft ? "-200px" : "40px")};
+  left: ${(props) => (props.showLeft ? "-200px" : "40px")};
   top: 10px;
   animation: ${show} 0.2s ease;
 `;

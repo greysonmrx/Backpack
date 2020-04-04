@@ -14,5 +14,5 @@ export default function Switch({ enable, onChange }) {
 
 Switch.propTypes = {
   enable: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };

@@ -15,17 +15,17 @@ function SelectColor({ name, options, style, ...rest }) {
       ref: radioRef.current,
       path: "value",
       getValue(refs) {
-        const checked = refs.find(ref => ref.checked);
+        const checked = refs.find((ref) => ref.checked);
 
         return checked ? checked.value : null;
       },
       setValue(refs, value) {
-        const item = refs.find(ref => ref.value === value);
+        const item = refs.find((ref) => ref.value === value);
 
         if (item) {
           item.checked = true;
         }
-      }
+      },
     });
   }, [fieldName, registerField]);
 
@@ -36,7 +36,7 @@ function SelectColor({ name, options, style, ...rest }) {
           <input
             name={fieldName}
             type="radio"
-            ref={elRef => (radioRef.current[index] = elRef)}
+            ref={(elRef) => (radioRef.current[index] = elRef)}
             defaultChecked={defaultValue === option.color}
             value={option.color}
             {...rest}
@@ -55,9 +55,9 @@ export default SelectColor;
 SelectColor.propType = {
   name: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 SelectColor.defaultProps = {
-  style: {}
+  style: {},
 };

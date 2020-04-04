@@ -8,7 +8,7 @@ export const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  display: ${props => (props.visible ? "flex" : "none")};
+  display: ${(props) => (props.visible ? "flex" : "none")};
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
@@ -86,7 +86,7 @@ export const Button = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    background: ${props => darken(0.1, "#3333cc")};
+    background: ${(props) => darken(0.1, "#3333cc")};
   }
 `;
 

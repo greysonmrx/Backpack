@@ -12,14 +12,14 @@ function SelectInput({ name, title, style, options, ...rest }) {
     registerField({
       name: fieldName,
       ref: selectRef.current,
-      path: "value"
+      path: "value",
     });
   }, [fieldName, registerField]);
 
   return (
     <Container error={!!error} style={style}>
       <select ref={selectRef} defaultValue={defaultValue} {...rest}>
-        {options.map(option => (
+        {options.map((option) => (
           <option key={option.id}>{option.value}</option>
         ))}
       </select>
@@ -34,9 +34,9 @@ SelectInput.propType = {
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  options: PropTypes.arrayOf(PropTypes.object).isRequired
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 SelectInput.defaultProps = {
-  style: {}
+  style: {},
 };

@@ -15,7 +15,7 @@ import {
   Note,
   Empty,
   EditorContent,
-  EditorScroll
+  EditorScroll,
 } from "./styles";
 import Dropdown from "../../components/Dropdown";
 import ModalDelete from "../../components/ModalDelete";
@@ -27,13 +27,13 @@ import {
   createNote,
   edit,
   editNoteContent,
-  editNote
+  editNote,
 } from "../../store/modules/notebook/actions";
 import Editor from "../../components/Editor";
 import { createNotification } from "../../services/notification";
 
 function Notebook({ location }) {
-  const notebooks = useSelector(state => state.notebook.notebooks);
+  const notebooks = useSelector((state) => state.notebook.notebooks);
   const [notebook, setNotebook] = useState(null);
   const [visibleDelete, setVisibleDelete] = useState(false);
   const [visibleCreate, setVisibleCreate] = useState(false);
@@ -44,7 +44,7 @@ function Notebook({ location }) {
   const [currentNoteDescription, setCurrentNoteDescription] = useState(null);
   const [visibleEditNote, setVisibleEditNote] = useState(false);
   const {
-    notebook: { id }
+    notebook: { id },
   } = Object(location.state);
   const [value, setValue] = useState();
   const [defaultValue, setDefaultValue] = useState();
@@ -58,7 +58,7 @@ function Notebook({ location }) {
   }, [id]);
 
   useEffect(() => {
-    const notebook = notebooks.filter(item => item.id === id)[0];
+    const notebook = notebooks.filter((item) => item.id === id)[0];
 
     setNotes(notebook.notes);
     setNotebook(notebook);
@@ -85,7 +85,7 @@ function Notebook({ location }) {
       ? format(new Date(date), "d 'de' MMMM 'de' yyyy", { locale: pt })
       : formatDistance(new Date(date), new Date(), {
           locale: pt,
-          addSuffix: true
+          addSuffix: true,
         });
   }
 
@@ -96,7 +96,7 @@ function Notebook({ location }) {
   function handleRemoveNotebook() {
     const message = {
       title: "Caderno removido com sucesso!",
-      body: `O caderno ${notebook.name} foi removido`
+      body: `O caderno ${notebook.name} foi removido`,
     };
 
     createNotification(message);
@@ -107,7 +107,7 @@ function Notebook({ location }) {
   function handleRemoveNote() {
     const message = {
       title: "Nota removida com sucesso!",
-      body: `A nota ${currentNote} foi removida`
+      body: `A nota ${currentNote} foi removida`,
     };
 
     createNotification(message);
@@ -120,7 +120,7 @@ function Notebook({ location }) {
   function handleCreateNote(data) {
     const message = {
       title: "Nota criada com sucesso!",
-      body: `A nota ${data.title} foi criada`
+      body: `A nota ${data.title} foi criada`,
     };
 
     createNotification(message);
@@ -130,7 +130,7 @@ function Notebook({ location }) {
   function handleEditNotebook(data) {
     const message = {
       title: "Caderno editado com sucesso!",
-      body: `O caderno ${data.name} foi editado`
+      body: `O caderno ${data.name} foi editado`,
     };
 
     createNotification(message);
@@ -140,7 +140,7 @@ function Notebook({ location }) {
   function handleEditNote(data) {
     const message = {
       title: "Nota editada com sucesso!",
-      body: `A nota ${data.title} foi editada`
+      body: `A nota ${data.title} foi editada`,
     };
 
     createNotification(message);
@@ -180,7 +180,7 @@ function Notebook({ location }) {
         cancel={() => setVisibleEditNote(false)}
         initialData={{
           title: currentNote,
-          description: currentNoteDescription
+          description: currentNoteDescription,
         }}
         confirm={handleEditNote}
       />
@@ -191,7 +191,7 @@ function Notebook({ location }) {
         message="Defina o novo nome do seu caderno para editá-lo!"
         cancel={() => setVisibleEdit(false)}
         initialData={{
-          name: notebook.name
+          name: notebook.name,
         }}
         confirm={handleEditNotebook}
       />
@@ -208,7 +208,7 @@ function Notebook({ location }) {
                       <span>Criar nova nota</span>
                     </>
                   ),
-                  action: () => setVisibleCreate(true)
+                  action: () => setVisibleCreate(true),
                 },
                 {
                   children: (
@@ -217,7 +217,7 @@ function Notebook({ location }) {
                       <span>Editar caderno</span>
                     </>
                   ),
-                  action: () => setVisibleEdit(true)
+                  action: () => setVisibleEdit(true),
                 },
                 {
                   children: (
@@ -226,8 +226,8 @@ function Notebook({ location }) {
                       <span>Excluir caderno</span>
                     </>
                   ),
-                  action: () => setVisibleDelete(true)
-                }
+                  action: () => setVisibleDelete(true),
+                },
               ]}
             />
           </Header>
@@ -241,7 +241,7 @@ function Notebook({ location }) {
               </Empty>
             ) : (
               <>
-                {notes.map(note => (
+                {notes.map((note) => (
                   <Note
                     key={note.id}
                     active={currentNoteId === note.id}
@@ -277,7 +277,7 @@ function Notebook({ location }) {
                       <span>Editar nota</span>
                     </>
                   ),
-                  action: () => setVisibleEditNote(true)
+                  action: () => setVisibleEditNote(true),
                 },
                 {
                   children: (
@@ -286,8 +286,8 @@ function Notebook({ location }) {
                       <span>Excluir nota</span>
                     </>
                   ),
-                  action: () => setVisibleDeleteNote(true)
-                }
+                  action: () => setVisibleDeleteNote(true),
+                },
               ]}
             />
           </header>

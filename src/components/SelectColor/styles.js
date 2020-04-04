@@ -24,7 +24,7 @@ export const Container = styled.label`
 
   span {
     border-radius: 50%;
-    background: ${props => props.color};
+    background: ${(props) => props.color};
     vertical-align: middle;
     margin-right: 10px;
     width: 2em;
@@ -36,7 +36,7 @@ export const Container = styled.label`
     transition: all 0.3s ease;
 
     &:hover {
-      background: ${props => darken(0.15, props.color)};
+      background: ${(props) => darken(0.15, props.color)};
     }
 
     svg {

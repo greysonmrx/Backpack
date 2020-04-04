@@ -111,7 +111,7 @@ export const Left = styled.div`
     align-items: center;
 
     p {
-      text-decoration: ${props => (props.checked ? "line-through" : null)};
+      text-decoration: ${(props) => (props.checked ? "line-through" : null)};
       font-size: 15px;
       margin-top: 3px;
     }
@@ -128,7 +128,7 @@ export const Action = styled.button`
   justify-content: center;
   align-items: center;
   border: 0;
-  background: ${props => props.color};
+  background: ${(props) => props.color};
   outline: none;
   margin-left: 10px;
   padding: 10px;
@@ -136,7 +136,7 @@ export const Action = styled.button`
   transition: all 0.3s;
 
   :hover {
-    background: ${props => darken(0.1, props.color)};
+    background: ${(props) => darken(0.1, props.color)};
   }
 
   svg {

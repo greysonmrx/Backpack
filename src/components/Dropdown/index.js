@@ -23,7 +23,7 @@ function Dropdown({ options }) {
       : document.addEventListener("click", closeMenu);
   }
 
-  const closeMenu = useCallback(event => {
+  const closeMenu = useCallback((event) => {
     event.preventDefault();
 
     document.removeEventListener("click", closeMenu);
@@ -42,7 +42,7 @@ function Dropdown({ options }) {
         <MdMoreHoriz />
       </ButtonIcon>
       <Menu ref={dropRef} visible={visible} showLeft={showLeft}>
-        {options.map(option => (
+        {options.map((option) => (
           <Item key={Math.random()} onClick={() => option.action()}>
             {option.children}
           </Item>
@@ -55,5 +55,5 @@ function Dropdown({ options }) {
 export default Dropdown;
 
 Dropdown.propType = {
-  options: PropTypes.arrayOf(PropTypes.object).isRequired
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

@@ -56,7 +56,7 @@ export const Note = styled.button`
   padding: 10px 15px;
   margin-bottom: 10px;
   border: 2px solid transparent;
-  border-color: ${props => (props.active ? "#3333cc" : "transparent")};
+  border-color: ${(props) => (props.active ? "#3333cc" : "transparent")};
 
   &:hover {
     border-color: #3333cc;

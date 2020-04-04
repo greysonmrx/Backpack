@@ -13,7 +13,7 @@ import {
   Button,
   Scroll,
   Form,
-  Colors
+  Colors,
 } from "./styles";
 import Input from "../../components/Input";
 import history from "../../services/history";
@@ -36,11 +36,11 @@ function AddLesson() {
           "A hora inicial da aula é obrigatória"
         ),
         finalTime: Yup.string().required("A hora final da aula é obrigatória"),
-        name: Yup.string().required("O nome da aula é obrigatório")
+        name: Yup.string().required("O nome da aula é obrigatório"),
       });
 
       await schema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       });
 
       formRef.current.setErrors({});
@@ -54,12 +54,12 @@ function AddLesson() {
         day: data.day,
         time: `${data.initialTime} - ${data.finalTime}`,
         classroom: data.classroom,
-        teacher: data.teacher
+        teacher: data.teacher,
       };
 
       const message = {
         title: "Uma nova aula foi criada!",
-        body: `A aula ${data.name} foi criada`
+        body: `A aula ${data.name} foi criada`,
       };
 
       createNotification(message);
@@ -69,7 +69,7 @@ function AddLesson() {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
 
-        err.inner.forEach(error => {
+        err.inner.forEach((error) => {
           errorMessages[error.path] = error.message;
         });
 
@@ -145,7 +145,7 @@ function AddLesson() {
                 { id: 4, value: "Quinta" },
                 { id: 5, value: "Sexta" },
                 { id: 6, value: "Sábado" },
-                { id: 0, value: "Domingo" }
+                { id: 0, value: "Domingo" },
               ]}
             />
             <Input
@@ -175,7 +175,7 @@ function AddLesson() {
                 { color: "#FFD600" },
                 { color: "#FFAB00" },
                 { color: "#FF6D00" },
-                { color: "#DD2C00" }
+                { color: "#DD2C00" },
               ]}
             />
           </Colors>

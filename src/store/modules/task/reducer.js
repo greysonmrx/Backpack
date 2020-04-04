@@ -1,19 +1,19 @@
 import produce from "immer";
 
 const INITIAL_STATE = {
-  tasks: []
+  tasks: [],
 };
 
 export default function task(state = INITIAL_STATE, action) {
   switch (action.type) {
     case "@task/CREATE": {
-      return produce(state, draft => {
+      return produce(state, (draft) => {
         draft.tasks = [...state.tasks, action.payload];
       });
     }
     case "@task/TOGGLE_DONE": {
-      return produce(state, draft => {
-        draft.tasks = state.tasks.map(task => {
+      return produce(state, (draft) => {
+        draft.tasks = state.tasks.map((task) => {
           if (action.payload === task.id) {
             return { ...task, done: !task.done };
           } else {
@@ -23,13 +23,13 @@ export default function task(state = INITIAL_STATE, action) {
       });
     }
     case "@task/REMOVE": {
-      return produce(state, draft => {
-        draft.tasks = state.tasks.filter(task => task.id !== action.payload);
+      return produce(state, (draft) => {
+        draft.tasks = state.tasks.filter((task) => task.id !== action.payload);
       });
     }
     case "@task/EDIT": {
-      return produce(state, draft => {
-        draft.tasks = state.tasks.map(task => {
+      return produce(state, (draft) => {
+        draft.tasks = state.tasks.map((task) => {
           if (action.payload.id === task.id) {
             return { ...task, title: action.payload.title };
           } else {

@@ -12,7 +12,7 @@ function Input({ name, title, style, ...rest }) {
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: "value"
+      path: "value",
     });
   }, [fieldName, registerField]);
 
@@ -29,9 +29,9 @@ export default Input;
 Input.propType = {
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 Input.defaultProps = {
-  style: {}
+  style: {},
 };

@@ -8,7 +8,7 @@ export default function RouteWrapper({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={props => (
+      render={(props) => (
         <DefaultLayout>
           <Component {...props} />
         </DefaultLayout>
@@ -18,5 +18,6 @@ export default function RouteWrapper({ component: Component, ...rest }) {
 }
 
 RouteWrapper.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired
+  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+    .isRequired,
 };

@@ -22,5 +22,5 @@ export default all([
   takeLatest("@task/CREATE", createTask),
   takeLatest("@task/TOGGLE_DONE", toggleDone),
   takeLatest("@task/REMOVE", removeTask),
-  takeLatest("@task/EDIT", editTask)
+  takeLatest("@task/EDIT", editTask),
 ]);

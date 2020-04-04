@@ -7,7 +7,7 @@ export const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  display: ${props => (props.visible ? "flex" : "none")};
+  display: ${(props) => (props.visible ? "flex" : "none")};
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
@@ -82,17 +82,18 @@ export const Exit = styled.button`
 `;
 
 export const Button = styled.button`
-  background: ${props => (props.outline ? "#ffffff" : "#d50000")};
-  border: ${props => (props.outline ? "1px solid #bbbbbb" : "none")};
+  background: ${(props) => (props.outline ? "#ffffff" : "#d50000")};
+  border: ${(props) => (props.outline ? "1px solid #bbbbbb" : "none")};
   padding: 10px 0;
   width: 90px;
   margin: 0 5px;
   border-radius: 5px;
   font-weight: 500;
-  color: ${props => (props.outline ? "#666666" : "#ffffff")};
+  color: ${(props) => (props.outline ? "#666666" : "#ffffff")};
   transition: all 0.3s ease;
 
   &:hover {
-    background: ${props => darken(0.1, props.outline ? "#ffffff" : "#d50000")};
+    background: ${(props) =>
+      darken(0.1, props.outline ? "#ffffff" : "#d50000")};
   }
 `;

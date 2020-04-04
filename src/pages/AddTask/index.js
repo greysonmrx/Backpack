@@ -21,18 +21,18 @@ function AddTask() {
   async function handleSubmit(data) {
     try {
       const schema = Yup.object().shape({
-        title: Yup.string().required("O título é obrigatório")
+        title: Yup.string().required("O título é obrigatório"),
       });
 
       await schema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       });
 
       formRef.current.setErrors({});
 
       const message = {
         title: "Uma nova tarefa foi criada!",
-        body: `A tarefa ${data.title} foi criada`
+        body: `A tarefa ${data.title} foi criada`,
       };
 
       const randomBytes = await promisify(crypto.randomBytes)(256);
@@ -43,14 +43,14 @@ function AddTask() {
         create({
           id: randomBytes.toString("hex"),
           done: false,
-          ...data
+          ...data,
         })
       );
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
 
-        err.inner.forEach(error => {
+        err.inner.forEach((error) => {
           errorMessages[error.path] = error.message;
         });
 

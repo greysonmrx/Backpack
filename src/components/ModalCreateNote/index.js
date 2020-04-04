@@ -16,18 +16,18 @@ function ModalCreateNote({
   confirm,
   visible,
   button,
-  initialData
+  initialData,
 }) {
   const formRef = useRef(null);
 
   async function handleSubmit(data) {
     try {
       const schema = Yup.object().shape({
-        title: Yup.string().required("O título da nota é obrigatório")
+        title: Yup.string().required("O título da nota é obrigatório"),
       });
 
       await schema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       });
 
       formRef.current.setErrors({});
@@ -38,14 +38,14 @@ function ModalCreateNote({
         id: randomBytes.toString("hex"),
         ...data,
         time: new Date(),
-        content: ""
+        content: "",
       });
       cancel();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errorMessages = {};
 
-        err.inner.forEach(error => {
+        err.inner.forEach((error) => {
           errorMessages[error.path] = error.message;
         });
 
@@ -89,5 +89,5 @@ ModalCreateNote.propTypes = {
   cancel: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
   button: PropTypes.string,
-  initialData: PropTypes.object
+  initialData: PropTypes.object,
 };

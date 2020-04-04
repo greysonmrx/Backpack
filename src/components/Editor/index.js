@@ -17,12 +17,12 @@ function Editor({ initialValue, onChange }) {
         { list: "ordered" },
         { list: "bullet" },
         { indent: "-1" },
-        { indent: "+1" }
+        { indent: "+1" },
       ],
       [{ direction: "rtl" }, { align: [] }],
       ["link", "image", "formula"],
-      ["clean"]
-    ]
+      ["clean"],
+    ],
   };
 
   useEffect(() => {
