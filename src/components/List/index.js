@@ -7,7 +7,10 @@ import Card from "../Card";
 
 function List({ data }) {
   return (
-    <Container isToday={data.id === new Date().getDay()}>
+    <Container
+      isToday={data.id === new Date().getDay()}
+      hasLessons={data.lessons.length !== 0}
+    >
       <h2>{data.name}</h2>
       {data.lessons.map((lesson) => (
         <Card key={lesson.id} data={lesson} />
