@@ -8,7 +8,7 @@ import Card from "../Card";
 function List({ data }) {
   return (
     <Container isToday={data.id === new Date().getDay()}>
-      <h2>{data.title}</h2>
+      <h2>{data.name}</h2>
       {data.lessons.map((lesson) => (
         <Card key={lesson.id} data={lesson} />
       ))}
