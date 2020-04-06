@@ -9,6 +9,7 @@ export const Container = styled.div`
   margin-bottom: 20px;
   flex-direction: column;
   color: #202124;
+  cursor: grab;
 
   ${(props) =>
     props.color
@@ -48,6 +49,22 @@ export const Container = styled.div`
             font-size: 20px;
           }
         `}
+
+  ${(props) =>
+    props.isDragging &&
+    css`
+      border: 2px dashed rgba(0, 0, 0, 0.2);
+      background: transparent;
+      box-shadow: none;
+      cursor: grabbing !important;
+
+      p,
+      h3,
+      button,
+      header {
+        opacity: 0;
+      }
+    `}
 `;
 
 export const Top = styled.div`

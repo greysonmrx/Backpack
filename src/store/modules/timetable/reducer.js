@@ -72,7 +72,7 @@ export default function timetable(state = INITIAL_STATE, action) {
     case "@timetable/EDIT": {
       return produce(state, (draft) => {
         const {
-          data: { day: currentDay },
+          data: { day: currentDay, id },
           initialDay,
         } = action.payload;
 
@@ -100,7 +100,35 @@ export default function timetable(state = INITIAL_STATE, action) {
               return day;
             }
           });
+        } else {
+          draft.data = state.data.map((day) => {
+            if (currentDay === day.name) {
+              return {
+                ...day,
+                lessons: day.lessons.map((lesson) => {
+                  if (lesson.id === id) {
+                    return action.payload.data;
+                  } else {
+                    return lesson;
+                  }
+                }),
+              };
+            } else {
+              return day;
+            }
+          });
         }
+      });
+    }
+    case "@timetable/MOVE": {
+      return produce(state, (draft) => {
+        const { fromList, from, to } = action.payload;
+
+        const dragged = draft.data[fromList].lessons[from];
+
+        draft.data[fromList].lessons.splice(from, 1);
+        draft.data[fromList].lessons.splice(to, 0, dragged);
+        console.log("move");
       });
     }
     default:

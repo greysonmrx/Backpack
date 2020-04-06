@@ -18,3 +18,10 @@ export function edit(data, initialDay) {
     payload: { data, initialDay },
   };
 }
+
+export function move(fromList, from, to) {
+  return {
+    type: "@timetable/MOVE",
+    payload: { fromList, from, to },
+  };
+}

@@ -81,7 +81,7 @@ function Sidebar() {
           <span>Configurações</span>
         </Button>
         <footer>
-          <p>Version 1.0.5</p>
+          <p>Version 1.1.0</p>
           <p>
             Made with{" "}
             <span role="img" aria-label="Heart">

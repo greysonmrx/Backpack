@@ -8,8 +8,8 @@ import List from "../List";
 function Board({ data }) {
   return (
     <Container>
-      {data.map((day) => (
-        <List key={day.id} data={day} />
+      {data.map((day, index) => (
+        <List key={day.id} data={day} index={index} />
       ))}
     </Container>
   );

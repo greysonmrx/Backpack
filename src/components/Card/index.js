@@ -1,22 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { MdEdit, MdDelete } from "react-icons/md";
+import { useDrag, useDrop } from "react-dnd";
 
 import history from "../../services/history";
 import { createNotification } from "../../services/notification";
 
-import { remove } from "../../store/modules/timetable/actions";
+import { remove, move } from "../../store/modules/timetable/actions";
 
 import { Container, Top, Button } from "./styles";
 
 import Dropdown from "../Dropdown";
 import ModalDelete from "../ModalDelete";
 
-function Card({ data }) {
+function Card({ data, index, listIndex }) {
+  const ref = useRef();
+
   const [visible, setVisible] = useState(false);
 
   const dispatch = useDispatch();
+
+  const [{ isDragging }, dragRef] = useDrag({
+    item: { type: "CARD", index, listIndex },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  const [, dropRef] = useDrop({
+    accept: "CARD",
+    hover: (item, monitor) => {
+      const draggedListIndex = item.listIndex;
+
+      const draggedIndex = item.index;
+      const targetIndex = index;
+
+      if (draggedIndex === targetIndex) return;
+
+      const targetSize = ref.current.getBoundingClientRect();
+      const targetCenter = (targetSize.bottom - targetSize.top) / 2;
+
+      const draggedOffset = monitor.getClientOffset();
+      const draggedTop = draggedOffset.y - targetSize.top;
+
+      if (draggedIndex < targetIndex && draggedTop < targetCenter) return;
+
+      if (draggedIndex > targetIndex && draggedTop > targetCenter) return;
+
+      dispatch(move(draggedListIndex, draggedIndex, targetIndex));
+
+      item.index = targetIndex;
+    },
+  });
+
+  dragRef(dropRef(ref));
 
   function handleRemoveLesson() {
     const message = {
@@ -29,7 +67,7 @@ function Card({ data }) {
   }
 
   return (
-    <Container color={data.color}>
+    <Container color={data.color} ref={ref} isDragging={isDragging}>
       <ModalDelete
         visible={visible}
         title="Excluir esta aula?"
