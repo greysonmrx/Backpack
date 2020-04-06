@@ -20,6 +20,10 @@ export const Container = styled.label`
         transform: scale(1);
       }
     }
+
+    &:disabled + span {
+      opacity: 0.5;
+    }
   }
 
   span {

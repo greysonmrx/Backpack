@@ -75,3 +75,24 @@ export const Colors = styled.div`
     font-size: 17px;
   }
 `;
+
+export const EmptyLesson = styled.div`
+  display: flex;
+  margin-bottom: 40px !important;
+
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      margin: 0;
+    }
+
+    p {
+      font-size: 16px;
+      margin-top: 3px;
+      margin-left: 15px;
+    }
+  }
+`;

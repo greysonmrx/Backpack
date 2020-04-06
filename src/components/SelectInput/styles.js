@@ -27,5 +27,10 @@ export const Container = styled.div`
     &:focus + span {
       color: #3333cc;
     }
+
+    &:disabled {
+      color: rgb(84, 84, 84);
+      background: rgb(235, 235, 228);
+    }
   }
 `;

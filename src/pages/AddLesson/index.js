@@ -14,12 +14,14 @@ import {
   Scroll,
   Form,
   Colors,
+  EmptyLesson,
 } from "./styles";
 import Input from "../../components/Input";
 import history from "../../services/history";
 import SubmitButton from "../../components/Button";
 import SelectInput from "../../components/SelectInput";
 import SelectColor from "../../components/SelectColor";
+import Switch from "../../components/Switch";
 
 import { create } from "../../store/modules/timetable/actions";
 import { createNotification } from "../../services/notification";
@@ -27,53 +29,75 @@ import { createNotification } from "../../services/notification";
 function AddLesson() {
   const formRef = useRef(null);
   const [disable, setDisable] = useState(true);
+  const [emptyLesson, setEmptyLesson] = useState(false);
   const dispatch = useDispatch();
 
   async function handleSubmit(data) {
-    try {
-      const schema = Yup.object().shape({
-        initialTime: Yup.string().required(
-          "A hora inicial da aula é obrigatória"
-        ),
-        finalTime: Yup.string().required("A hora final da aula é obrigatória"),
-        name: Yup.string().required("O nome da aula é obrigatório"),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      formRef.current.setErrors({});
-
+    if (emptyLesson) {
       const randomBytes = await promisify(crypto.randomBytes)(256);
-
-      const formatedData = {
-        id: randomBytes.toString("hex"),
-        name: data.name,
-        color: data.color,
-        day: data.day,
-        time: `${data.initialTime} - ${data.finalTime}`,
-        classroom: data.classroom,
-        teacher: data.teacher,
-      };
 
       const message = {
         title: "Uma nova aula foi criada!",
-        body: `A aula ${data.name} foi criada`,
+        body: "A aula vaga foi criada",
       };
 
       createNotification(message);
 
-      dispatch(create(formatedData));
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errorMessages = {};
-
-        err.inner.forEach((error) => {
-          errorMessages[error.path] = error.message;
+      dispatch(
+        create({
+          id: randomBytes.toString("hex"),
+          day: data.day,
+          isEmptyLesson: emptyLesson,
+        })
+      );
+    } else {
+      try {
+        const schema = Yup.object().shape({
+          initialTime: Yup.string().required(
+            "A hora inicial da aula é obrigatória"
+          ),
+          finalTime: Yup.string().required(
+            "A hora final da aula é obrigatória"
+          ),
+          name: Yup.string(),
         });
 
-        formRef.current.setErrors(errorMessages);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        formRef.current.setErrors({});
+
+        const randomBytes = await promisify(crypto.randomBytes)(256);
+
+        const formatedData = {
+          id: randomBytes.toString("hex"),
+          name: data.name,
+          color: data.color,
+          day: data.day,
+          time: `${data.initialTime} - ${data.finalTime}`,
+          classroom: data.classroom,
+          teacher: data.teacher,
+        };
+
+        const message = {
+          title: "Uma nova aula foi criada!",
+          body: `A aula ${data.name} foi criada`,
+        };
+
+        createNotification(message);
+
+        dispatch(create(formatedData));
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errorMessages = {};
+
+          err.inner.forEach((error) => {
+            errorMessages[error.path] = error.message;
+          });
+
+          formRef.current.setErrors(errorMessages);
+        }
       }
     }
   }
@@ -106,6 +130,7 @@ function AddLesson() {
           <div>
             <Input
               name="initialTime"
+              disabled={emptyLesson}
               title="Hora de início da aula"
               type="time"
               style={{ marginRight: 20 }}
@@ -113,6 +138,7 @@ function AddLesson() {
             />
             <Input
               name="finalTime"
+              disabled={emptyLesson}
               title="Hora de conclusão da aula"
               type="time"
               onChange={handleDisableButton}
@@ -121,6 +147,7 @@ function AddLesson() {
           <div>
             <Input
               name="name"
+              disabled={emptyLesson}
               title="Nome da aula"
               type="text"
               style={{ marginRight: 20 }}
@@ -128,6 +155,7 @@ function AddLesson() {
             />
             <Input
               name="classroom"
+              disabled={emptyLesson}
               title="Nome da sala de aula (opcional)"
               type="text"
               onChange={handleDisableButton}
@@ -149,6 +177,7 @@ function AddLesson() {
               ]}
             />
             <Input
+              disabled={emptyLesson}
               name="teacher"
               title="Nome do(a) professor(a) (opcional)"
               type="text"
@@ -159,6 +188,7 @@ function AddLesson() {
             <p>Escolha uma cor: </p>
             <SelectColor
               name="color"
+              disabled={emptyLesson}
               options={[
                 { color: "#d50000" },
                 { color: "#C51162" },
@@ -179,7 +209,16 @@ function AddLesson() {
               ]}
             />
           </Colors>
-          <SubmitButton type="submit" isDisabled={disable}>
+          <EmptyLesson>
+            <label>
+              <Switch
+                enable={emptyLesson}
+                onChange={() => setEmptyLesson(!emptyLesson)}
+              />
+              <p>Aula vaga</p>
+            </label>
+          </EmptyLesson>
+          <SubmitButton type="submit" isDisabled={!emptyLesson && disable}>
             <>
               <MdSave />
               <span>Adicionar aula</span>

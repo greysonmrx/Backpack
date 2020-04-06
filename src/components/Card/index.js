@@ -8,7 +8,7 @@ import { createNotification } from "../../services/notification";
 
 import { remove } from "../../store/modules/timetable/actions";
 
-import { Container, Top } from "./styles";
+import { Container, Top, Button } from "./styles";
 
 import Dropdown from "../Dropdown";
 import ModalDelete from "../ModalDelete";
@@ -21,7 +21,7 @@ function Card({ data }) {
   function handleRemoveLesson() {
     const message = {
       title: "Aula removida com sucesso!",
-      body: `A aula ${data.name} foi removida`,
+      body: `A aula ${data.name || "vaga"} foi removida`,
     };
 
     createNotification(message);
@@ -37,42 +37,53 @@ function Card({ data }) {
         cancel={() => setVisible(false)}
         confirm={handleRemoveLesson}
       />
-      <header>
-        <Top>
-          <h3>{data.name}</h3>
-          <Dropdown
-            options={[
-              {
-                action: () =>
-                  history.push({
-                    pathname: "/editlesson",
-                    state: { data },
-                  }),
-                children: (
-                  <>
-                    <MdEdit />
-                    <span>Editar esta aula</span>
-                  </>
-                ),
-              },
-              {
-                action: () => setVisible(true),
-                children: (
-                  <>
-                    <MdDelete />
-                    <span>Excluir esta aula</span>
-                  </>
-                ),
-              },
-            ]}
-          />
-        </Top>
-        <time>{data.time}</time>
-      </header>
-      <p>
-        {data.classroom}
-        {data.teacher && data.classroom ? `, ${data.teacher}` : data.teacher}
-      </p>
+      {data.isEmptyLesson ? (
+        <>
+          <h3>Aula vaga</h3>
+          <Button onClick={() => setVisible(true)}>Excluir</Button>
+        </>
+      ) : (
+        <>
+          <header>
+            <Top>
+              <h3>{data.name}</h3>
+              <Dropdown
+                options={[
+                  {
+                    action: () =>
+                      history.push({
+                        pathname: "/editlesson",
+                        state: { data },
+                      }),
+                    children: (
+                      <>
+                        <MdEdit />
+                        <span>Editar esta aula</span>
+                      </>
+                    ),
+                  },
+                  {
+                    action: () => setVisible(true),
+                    children: (
+                      <>
+                        <MdDelete />
+                        <span>Excluir esta aula</span>
+                      </>
+                    ),
+                  },
+                ]}
+              />
+            </Top>
+            <time>{data.time}</time>
+          </header>
+          <p>
+            {data.classroom}
+            {data.teacher && data.classroom
+              ? `, ${data.teacher}`
+              : data.teacher}
+          </p>
+        </>
+      )}
     </Container>
   );
 }
