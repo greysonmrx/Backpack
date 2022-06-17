@@ -91,7 +91,7 @@
     "commitizen": "^4.0.3",
     "concurrently": "^4.1.2",
     "cz-conventional-changelog": "3.1.0",
-    "electron": "^6.0.4",
+    "electron": "^15.5.5",
     "electron-builder": "21.1.0",
     "typescript": "^3.5.3",
     "wait-on": "^3.3.0"
